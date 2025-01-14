@@ -3,6 +3,7 @@ import time
 import socketio
 import requests
 import sys
+import os
 
 sio = socketio.Client()
 session = requests.Session()
@@ -18,10 +19,9 @@ ircroom = "null"
 
 # Initialize seen as a dictionary
 seen = {}
-start_poker = False  # Initialize start_poker as False
 
-# Open a log file for writing
-log_file = open("log.txt", "a")
+log_file_path = os.path.expanduser("~/log.txt")
+log_file = open(log_file_path, "a")
 
 def log_to_file(message):
     """Log messages to the log file."""
