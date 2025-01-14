@@ -38,7 +38,7 @@ def main():
     area = "for"
     room = "bar_giko2"
     character = "akai"
-    name = "akai.py" #testing
+    name = "akai.py"
     password = "akai"
 
     if len(sys.argv) > 1:
