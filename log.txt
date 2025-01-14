@@ -1,0 +1,22 @@
+[*] Connecting to server
+[*] Successfully connected
+id: 764da4eb-f0b5-4e32-afce-b16e7f74f1d3
+[*] Connected to socket
+[*] Fetching room users
+[*] Found 18 users
+[Ilfak◆OWilfaktBI, giko.py, y2kate, minemaster, Bonka mi shin, cola_addict, sleepyhaed, akai.py, kalfi◆7FJpeEQRbg, Butterscotch, te◆pMMGBq496U, meow, minemaster, PhatCat, Akai◆giko//JRnk, None◆55555.sSuI, freud◆C.CoSQWNIc, akai.py]
+2025-01-14 10:38:06 < akai.py > Hi
+2025-01-14 10:38:16 < Akai◆giko//JRnk > Hi
+[!] Disconnected from socket
+[*] Connecting to server
+[*] Successfully connected
+id: c295aefc-29b7-4411-bb39-d9548a1cc842
+[*] Connected to socket
+[*] Fetching room users
+[*] Found 18 users
+[Ilfak◆OWilfaktBI, giko.py, y2kate, minemaster, Bonka mi shin, cola_addict, sleepyhaed, akai.py, kalfi◆7FJpeEQRbg, Butterscotch, te◆pMMGBq496U, meow, minemaster, PhatCat, Akai◆giko//JRnk, None◆55555.sSuI, freud◆C.CoSQWNIc, akai.py]
+2025-01-14 10:39:35: Akai◆giko//JRnk left
+[-] [Ilfak◆OWilfaktBI, giko.py, y2kate, minemaster, Bonka mi shin, cola_addict, sleepyhaed, akai.py, kalfi◆7FJpeEQRbg, Butterscotch, te◆pMMGBq496U, meow, minemaster, PhatCat, None◆55555.sSuI, freud◆C.CoSQWNIc, akai.py]
+2025-01-14 10:39:41: Akai◆giko//JRnk joined
+[+] [Ilfak◆OWilfaktBI, giko.py, y2kate, minemaster, Bonka mi shin, cola_addict, sleepyhaed, akai.py, kalfi◆7FJpeEQRbg, Butterscotch, te◆pMMGBq496U, meow, minemaster, PhatCat, None◆55555.sSuI, freud◆C.CoSQWNIc, akai.py, Akai◆giko//JRnk]
+[!] Disconnected from socket
