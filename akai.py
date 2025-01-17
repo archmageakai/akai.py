@@ -37,8 +37,8 @@ def main():
     server = "play.gikopoi.com"
     area = "for"
     room = "bar_giko2"
-    character = "akai"
-    name = "akai.py"
+    character = input("Enter your giko: ")
+    name = input("Enter your username: ")
     password = "akai"
 
     if len(sys.argv) > 1:
