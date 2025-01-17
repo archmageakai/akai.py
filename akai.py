@@ -20,8 +20,13 @@ ircroom = "null"
 # Initialize seen as a dictionary
 seen = {}
 
-log_file_path = os.path.expanduser("~/log.txt")
+# Log
+filename = input("Enter the name for the log file (default: log.txt): ").strip()
+if not filename:
+    filename = "log"    
+log_file_path = os.path.expanduser(f"~/{filename}.txt")
 log_file = open(log_file_path, "a")
+print(f"Log file created at: {log_file_path}")
 
 def log_to_file(message):
     """Log messages to the log file."""
@@ -37,8 +42,12 @@ def main():
     server = "play.gikopoi.com"
     area = "for"
     room = "bar_giko2"
-    character = input("Enter your giko: ")
-    name = input("Enter your username: ")
+    character = input("Enter your giko (default: akai): ")
+    if not character:
+        character = "akai"
+    name = input("Enter your username (default: akai.py): ")
+    if not name:
+        name = "akai.py"
     password = "akai"
 
     if len(sys.argv) > 1:
