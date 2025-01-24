@@ -5,6 +5,8 @@ import requests
 import sys
 import os
 
+from plugin import akaiyen
+
 sio = socketio.Client()
 session = requests.Session()
 
@@ -26,7 +28,7 @@ if not filename:
     filename = "log"    
 log_file_path = os.path.expanduser(f"~/{filename}.txt")
 log_file = open(log_file_path, "a")
-print(f"Log file created at: {log_file_path}")
+print(f"Log file: {log_file_path}")
 
 def log_to_file(message):
     """Log messages to the log file."""
@@ -41,7 +43,7 @@ def main():
     global api
     server = "play.gikopoi.com"
     area = "for"
-    room = "bar_giko2"
+    room = "bar"
     character = input("Enter your giko (default: akai): ")
     if not character:
         character = "akai"
@@ -247,6 +249,9 @@ def server_msg(event, namespace):
     msg = '{} < {} > {}'.format(tstamp, author, namespace)
     print(msg)
     log_to_file(msg)
+    
+    # akaiyen verification handler
+    akaiyen.monitor(author, namespace, send_message)
 
     if (author == anon_name) and anti_spy:
         return
