@@ -150,6 +150,10 @@ def monitor(author, namespace, send_message):
     if message == ".help":
         send_message(f"Convert gikocoins to akaiyen using !send <amount> akai.py◆NEET")
         send_message(f"'Commands': .akai | .akaiyen | .akaiyen_rate")
+        
+    #akai
+    if message == ".akai":
+        send_message(f"https://akai.gikopoi.com")
     
     #CHECK BALANCE
     if message == ".akaiyen":
