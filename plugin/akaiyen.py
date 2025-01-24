@@ -3,7 +3,7 @@ import re
 import time
 import math
 
-bankfn = os.path.expanduser("./data/akaiyen.txt")
+bankfn = os.path.expanduser("~/akaipy-data/akaiyen.txt")
 
 def send(author, message, send_message):
     """
@@ -24,41 +24,72 @@ def send(author, message, send_message):
             rate = akaiyen_rate(total)  # Get the rate for 1 akaiyen
 
             # Convert gikocoins to akaiyen (allowing decimal conversion)
-            akaiyen = coins / rate  # Use the rate to convert gikocoins to akaiyen
+            akaiyen = math.floor((coins / rate) * 100) / 100  #always result with 2 decimals, rounded down
             print(f"[AKAIYEN] {coins} gikocoins is equivalent to {akaiyen} akaiyen.")
+            if akaiyen == 0.00:
+                # in case of akaiyen amount being zero
+                send_message(f"!send {coins} {author}")
+                send_message(
+                    f"Here is a refund, {author}! Please send enough gikocoins to convert to at least 0.01 akaiyen. (1 akaiyen = {rate} gikocoins.)"
+                )
+            else:
+                # Write to file with the new akaiyen amount
+                write_to_file(author, akaiyen)
 
-            # Write to file with the new akaiyen amount (allowing decimals)
-            write_to_file(author, akaiyen)
+                # Send a message to the user with the converted amount
+                send_message(f"Thank you for your donation, {author}! You received {akaiyen:.2f} akaiyen.")
 
-            # Send a message to the user with the converted amount
-            send_message(f"Thank you for your donation, {author}! You received {akaiyen:.2f} akaiyen.")
-
-            # Check the balance after donation
-            check_balance(author, send_message)
+                # Check the balance after donation
+                check_balance(author, send_message)
 
             return {"author": author, "akaiyen": akaiyen}
 
     return None
 
-
 def check_balance(author, send_message):
     """
     Check the balance of a user from the akaiyen.txt file and send a message with the balance.
+    Handles usernames with spaces, special characters, and other non-standard formats.
+    Performs case-sensitive matching for the username.
     """
+    try:
+        with open(bankfn, "r") as f:
+            for line in f:
+                # Split the line into username and amount, assuming the amount is the last part
+                parts = line.rsplit(maxsplit=1)
+                if len(parts) == 2:
+                    stored_user, amount = parts
+                    # Match the username exactly (case-sensitive)
+                    if stored_user.strip() == author.strip():
+                        try:
+                            balance = float(amount)  # Ensure the amount is a valid number
+                            send_message(f"{author} has a total balance of {balance:.2f} akaiyen.")
+                            return
+                        except ValueError:
+                            print(f"[ERROR] Invalid balance format for user {stored_user}: {amount}")
+                            send_message(f"An error occurred while checking {author}'s balance.")
+                            return
 
-    # Read the file and find the user
-    with open(bankfn, "r") as f:
-        for line in f:
-            parts = line.strip().split()
-            if len(parts) == 2:
-                stored_user, amount = parts
-                if stored_user == author:
-                    send_message(f"{author} has a total balance of {amount} akaiyen.")
-                    return
+        # If the user is not found
+        send_message(f"{author} has no akaiyen balance.")
+    except FileNotFoundError:
+        # Handle the case where the file does not exist
+        send_message(f"No balance file found. {author} has no akaiyen balance.")
+    except Exception as e:
+        # Catch unexpected errors
+        print(f"[ERROR] An error occurred while checking balance: {e}")
+        send_message(f"An error occurred while checking {author}'s balance.")
+
     
-    # If the user is not found
-    send_message(f"{author} has no akaiyen balance.")
-
+        # If the user is not found
+        send_message(f"{author} has no akaiyen balance.")
+    except FileNotFoundError:
+        # Handle the case where the file does not exist
+        send_message(f"No balance file found. {author} has no akaiyen balance.")
+    except Exception as e:
+        # Catch unexpected errors
+        print(f"[ERROR] An error occurred while checking balance: {e}")
+        send_message(f"An error occurred while checking {author}'s balance.")
 
 def sum_all():
     """
@@ -90,9 +121,9 @@ def akaiyen_rate(total):
         rate = 1
         return rate
     rate = total * 10.00
-    print(f"1 akaiyen = {rate:.2f} gikocoins.")
+    rate = round(rate)  # Round to the nearest integer
+    print(f"1 akaiyen = {rate} gikocoins.")
     return rate
-
 
 def write_to_file(author, akaiyen):
     """
@@ -164,5 +195,4 @@ def monitor(author, namespace, send_message):
     if message == ".akaiyen_rate":
         total = sum_all()
         rate = akaiyen_rate(total)
-        disprate = math.floor(rate)
-        send_message(f"1 akaiyen = {disprate} gikocoins.")
+        send_message(f"1 akaiyen = {rate} gikocoins.")
