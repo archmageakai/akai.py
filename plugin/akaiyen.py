@@ -90,7 +90,7 @@ def akaiyen_rate(total):
         rate = 1
         return rate
     rate = total * 10.00
-    print(f"1 akaiyen = {rate} gikocoins.")
+    print(f"1 akaiyen = {rate:.2f} gikocoins.")
     return rate
 
 
