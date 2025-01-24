@@ -81,7 +81,7 @@ def main():
         val = input()  # Read input from the user
         if len(val):
             tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            log_to_file(f"{tstamp} < {name} > {val}")  # Log the input
+            log_to_file(f"{tstamp} < {get_username(my_id)} > {val}")  # Log the input
             if val[0] == ",":
                 move_around(val[1:])
             else:
@@ -162,8 +162,14 @@ def get_username(userid):
         return anon_name
 
 def send_message(msg):
+    """Send a message and log it."""
+    # Send the message
     sio.emit("user-msg", msg)
     sio.emit("user-msg", "")
+    
+    # Log the message
+    tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_to_file(f"{tstamp} < {get_username(my_id)} > {msg}")
 
 def move_around(directions):
     uplr = {"u": "up", "d": "down", "l": "left", "r": "right"}
