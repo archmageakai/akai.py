@@ -147,7 +147,7 @@ def monitor(author, namespace, send_message):
         result = send(author, message, send_message)
     
     #HELP
-    if message == .help
+    if message == .help:
         send_message(f"Convert gikocoins to akaiyen using !send <amount> akai.py◆NEET")
         send_message(f"'Commands': .akai | .akaiyen | .akaiyen_rate")
     
