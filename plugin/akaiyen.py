@@ -128,6 +128,7 @@ def akaiyen_rate(total):
 def write_to_file(author, akaiyen):
     """
     Write the user's name and coin amount to the file, or update if the user exists.
+    Handles usernames with spaces, special characters, and other non-standard formats.
     """
     
     os.makedirs(os.path.dirname(bankfn), exist_ok=True)
@@ -139,7 +140,8 @@ def write_to_file(author, akaiyen):
         print(f"[AKAIYEN] File {bankfn} found, reading...")
         with open(bankfn, "r") as f:
             for line in f:
-                parts = line.strip().split()
+                # Use rsplit(maxsplit=1) to handle spaces in the username
+                parts = line.rsplit(maxsplit=1)
                 if len(parts) == 2:
                     user, amount = parts
                     try:
@@ -160,7 +162,7 @@ def write_to_file(author, akaiyen):
     try:
         with open(bankfn, "w") as f:
             for user, amount in records.items():
-                f.write(f"{user} {amount:.2f}\n")  # Store as float with 6 decimal places
+                f.write(f"{user} {amount:.2f}\n")  # Store as float with 2 decimal places
         print(f"[AKAIYEN] Updated {bankfn}: {author} now has {records[author]:.2f} akaiyen.")
     except Exception as e:
         print(f"[AKAIYEN] Error writing to file: {e}")
