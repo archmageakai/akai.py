@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import math
 
 bankfn = os.path.expanduser("./data/akaiyen.txt")
 
@@ -88,7 +89,7 @@ def akaiyen_rate(total):
         print("1 akaiyen = 1 gikocoin")
         rate = 1
         return rate
-    rate = total * 10.0  # Ensure the rate is a float
+    rate = total * 10.0
     print(f"1 akaiyen = {rate} gikocoins.")
     return rate
 
@@ -163,4 +164,5 @@ def monitor(author, namespace, send_message):
     if message == ".akaiyen_rate":
         total = sum_all()
         rate = akaiyen_rate(total)
-        send_message(f"1 akaiyen = {rate} gikocoins.")
+        disprate = math.floor(rate)
+        send_message(f"1 akaiyen = {disprate} gikocoins.")
