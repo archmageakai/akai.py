@@ -4,6 +4,7 @@ import time
 import math
 
 bankfn = os.path.expanduser("~/akaipy-data/akaiyen.txt")
+mula = os.path.expanduser("~/akaipy-data/totalyen.txt")
 
 def send(author, message, send_message):
     """
@@ -17,11 +18,7 @@ def send(author, message, send_message):
             coins = int(match.group(2))
             print(f"[AKAIYEN] Detected {author} has sent akai.py◆NEET {coins} gikocoins.")
 
-            # Get the total coins by calling sum_all
-            total = sum_all()  # Get the total coins from the file
-
-            # Calculate the rate of 1 akaiyen based on the total coins
-            rate = akaiyen_rate(total)  # Get the rate for 1 akaiyen
+            rate = akaiyen_rate(author)  # Get the rate for 1 akaiyen
 
             # Convert gikocoins to akaiyen (allowing decimal conversion)
             akaiyen = math.floor((coins / rate) * 100) / 100  #always result with 2 decimals, rounded down
@@ -35,6 +32,7 @@ def send(author, message, send_message):
             else:
                 # Write to file with the new akaiyen amount
                 write_to_file(author, akaiyen)
+                write_to_totalyen(author, akaiyen)
 
                 # Send a message to the user with the converted amount
                 send_message(f"Thank you for your donation, {author}! You received {akaiyen:.2f} akaiyen.")
@@ -112,23 +110,48 @@ def sum_all():
     return total
 
 
-def akaiyen_rate(total):
+def akaiyen_rate(author):
     """
-    Calculate the rate of 1 akaiyen based on the total coins.
+    Calculate the rate of 1 akaiyen based on the total akaiyen in user wallet.
     """
-    if total == 0:
+    yentotal = 0  # Initialize yentotal to a default value
+
+    try:
+        with open(mula, "r") as f:
+            for line in f:
+                # Split the line into username and amount, assuming the amount is the last part
+                parts = line.rsplit(maxsplit=1)
+                if len(parts) == 2:
+                    stored_user, amount = parts
+                    # Match the username exactly (case-sensitive)
+                    if stored_user.strip() == author.strip():
+                        try:
+                            yentotal = float(amount)  # Ensure the amount is a valid number
+                            break  # Exit the loop once the user is found
+                        except ValueError:
+                            print(f"[ERROR] Invalid balance format for user {stored_user}: {amount}")
+                            return None
+    except FileNotFoundError:
+        print(f"[ERROR] The file {mula} was not found.")
+        return None
+    except Exception as e:
+        print(f"[ERROR] An unexpected error occurred: {e}")
+        return None
+
+    # This part is outside the try block
+    if yentotal == 0:
         print("1 akaiyen = 1 gikocoin")
         rate = 1
-        return rate
-    rate = total * 10.00
-    rate = round(rate)  # Round to the nearest integer
-    print(f"1 akaiyen = {rate} gikocoins.")
+    else:
+        rate = yentotal * 10.00
+        rate = round(rate)  # Round to the nearest integer
+        print(f"1 akaiyen = {rate} gikocoins.")
+
     return rate
 
 def write_to_file(author, akaiyen):
     """
-    Write the user's name and coin amount to the file, or update if the user exists.
-    Handles usernames with spaces, special characters, and other non-standard formats.
+    Writes to akaiyen.txt
     """
     
     os.makedirs(os.path.dirname(bankfn), exist_ok=True)
@@ -166,35 +189,76 @@ def write_to_file(author, akaiyen):
         print(f"[AKAIYEN] Updated {bankfn}: {author} now has {records[author]:.2f} akaiyen.")
     except Exception as e:
         print(f"[AKAIYEN] Error writing to file: {e}")
+        
+def write_to_totalyen(author, akaiyen):
+    """
+    Writes to totalyen.txt
+    """
+    
+    os.makedirs(os.path.dirname(mula), exist_ok=True)
+
+    print(f"[AKAIYEN] Writing to file {mula}...")
+
+    records = {}
+    if os.path.exists(mula):
+        print(f"[AKAIYEN] File {mula} found, reading...")
+        with open(mula, "r") as f:
+            for line in f:
+                # Use rsplit(maxsplit=1) to handle spaces in the username
+                parts = line.rsplit(maxsplit=1)
+                if len(parts) == 2:
+                    user, amount = parts
+                    try:
+                        records[user] = float(amount)  # Allow decimals here
+                    except ValueError:
+                        print(f"Invalid amount for {user}: {amount}")
+                        continue
+
+    # Update the user's record
+    if author in records:
+        records[author] += akaiyen  # Add the new coins to the existing amount
+        print(f"[AKAIYEN] {author} already exists. Adding {akaiyen} akaiyen.")
+    else:
+        records[author] = akaiyen  # Add a new record for the user
+        print(f"[AKAIYEN] {author} not found. Adding new record with {akaiyen} akaiyen.")
+
+    # Write the updated records back to the file
+    try:
+        with open(mula, "w") as f:
+            for user, amount in records.items():
+                f.write(f"{user} {amount:.2f}\n")  # Store as float with 2 decimal places
+        print(f"[AKAIYEN] Updated {mula}: {author} now has {records[author]:.2f} akaiyen.")
+    except Exception as e:
+        print(f"[AKAIYEN] Error writing to file: {e}")
 
 def monitor(author, namespace, send_message):
     """
     Monitor incoming messages and act on specific patterns.
     """
-    
-    #TRANSFER FROM GIKOCOINS TO AKAIYEN
     message = namespace
-    
     result = None
 
     if author and message:
         result = send(author, message, send_message)
-    
-    #HELP
+
+    # HELP
     if message == ".help":
         send_message(f"Convert gikocoins to akaiyen using !send <amount> akai.py◆NEET")
         send_message(f"'Commands': .akai | .akaiyen | .akaiyen_rate")
-        
-    #akai
+
+    # akai
     if message == ".akai":
         send_message(f"https://akai.gikopoi.com")
-    
-    #CHECK BALANCE
+
+    # CHECK BALANCE
     if message == ".akaiyen":
         check_balance(author, send_message)
 
-    #CHECK RATE
+    # CHECK RATE
     if message == ".akaiyen_rate":
-        total = sum_all()
-        rate = akaiyen_rate(total)
-        send_message(f"1 akaiyen = {rate} gikocoins.")
+        rate = akaiyen_rate(author)  # Corrected function call
+        if rate is not None:
+            if rate == 1:
+                send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins")
+            else:
+                send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins")
