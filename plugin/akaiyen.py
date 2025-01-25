@@ -10,7 +10,6 @@ def send(author, message, send_message):
     """
     Handle messages to detect when a user sends coins to akai.py and process them.
     """
-
     if author == "giko.py◆BOT":
         match = re.match(r"^(.+) sent akai\.py◆NEET (\d+) gikocoins$", message)
         if match:
@@ -18,26 +17,33 @@ def send(author, message, send_message):
             coins = int(match.group(2))
             print(f"[AKAIYEN] Detected {author} has sent akai.py◆NEET {coins} gikocoins.")
 
-            rate = akaiyen_rate(author)  # Get the rate for 1 akaiyen
+            akaiyen = 0.00  # Initialize total akaiyen to accumulate the conversion
 
-            # Convert gikocoins to akaiyen (allowing decimal conversion)
-            akaiyen = math.floor((coins / rate) * 100) / 100  #always result with 2 decimals, rounded down
-            print(f"[AKAIYEN] {coins} gikocoins is equivalent to {akaiyen} akaiyen.")
+            # Process each gikocoin individually            
+            print(f"[AKAIYEN] start loop")
+            for _ in range(coins):
+                rate = akaiyen_rate(author)
+                akaiyen_i = 1 / rate
+                akaiyen += akaiyen_i
+            print(f"[AKAIYEN] loop finished")
+            
+            akaiyen = math.ceil(akaiyen * 100) / 100
+            # Update the user's balance after all conversions
+            print(f"[AKAIYEN] writing to bank/records")
+            write_to_file(author, akaiyen)  # Write the accumulated total akaiyen
+            write_to_totalyen(author, akaiyen)  # Write the accumulated total akaiyen
+
             if akaiyen == 0.00:
-                # in case of akaiyen amount being zero
+                # Handle case where no akaiyen could be converted
                 send_message(f"!send {coins} {author}")
                 send_message(
                     f"Here is a refund, {author}! Please send enough gikocoins to convert to at least 0.01 akaiyen. (1 akaiyen = {rate} gikocoins.)"
                 )
             else:
-                # Write to file with the new akaiyen amount
-                write_to_file(author, akaiyen)
-                write_to_totalyen(author, akaiyen)
-
-                # Send a message to the user with the converted amount
+                # Send a message to the user with the total converted amount
                 send_message(f"Thank you for your donation, {author}! You received {akaiyen:.2f} akaiyen.")
 
-                # Check the balance after donation
+                # Check the balance after the donation
                 check_balance(author, send_message)
 
             return {"author": author, "akaiyen": akaiyen}
@@ -89,27 +95,6 @@ def check_balance(author, send_message):
         print(f"[ERROR] An error occurred while checking balance: {e}")
         send_message(f"An error occurred while checking {author}'s balance.")
 
-def sum_all():
-    """
-    Sum up all the coin amounts (second part of each line) in the akaiyen.txt file.
-    """
-    total = 0.0  # Initialize as float to allow decimal summation
-
-    # Read the file and sum the coin amounts
-    with open(bankfn, "r") as f:
-        for line in f:
-            parts = line.strip().split()
-            if len(parts) == 2:
-                try:
-                    akaiyen = float(parts[1])  # Allow decimals here
-                    total += akaiyen
-                except ValueError:
-                    print(f"Invalid coin value on line: {line.strip()}")
-    
-    print(f"Total coins in {bankfn}: {total}")
-    return total
-
-
 def akaiyen_rate(author):
     """
     Calculate the rate of 1 akaiyen based on the total akaiyen in user wallet.
@@ -138,14 +123,13 @@ def akaiyen_rate(author):
         print(f"[ERROR] An unexpected error occurred: {e}")
         return None
 
-    # This part is outside the try block
-    if yentotal == 0:
-        rate = 10
-        print("1 akaiyen = {rate} gikocoin")
-    else:
-        rate = yentotal * 10.00
-        rate = round(rate)  # Round to the nearest integer
-        print(f"1 akaiyen = {rate} gikocoins.")
+    # Determine the rate dynamically
+    rate = 10  # Start with the base rate
+    threshold = 100.00  # Initial threshold
+
+    while yentotal > threshold:
+        rate *= 10  # Increase the rate by a factor of 10
+        threshold *= 10  # Increase the threshold by a factor of 10
 
     return rate
 
@@ -244,21 +228,17 @@ def monitor(author, namespace, send_message):
     # HELP
     if message == ".help":
         send_message(f"Convert gikocoins to akaiyen using !send <amount> akai.py◆NEET")
-        send_message(f"'Commands': .akai | .akaiyen | .akaiyen_rate")
+        send_message(f"'Commands': .akai | .yen | .rate")
 
     # akai
     if message == ".akai":
         send_message(f"https://akai.gikopoi.com")
 
     # CHECK BALANCE
-    if message == ".akaiyen":
+    if message == ".yen":
         check_balance(author, send_message)
 
     # CHECK RATE
-    if message == ".akaiyen_rate":
-        rate = akaiyen_rate(author)  # Corrected function call
-        if rate is not None:
-            if rate == 0.10:
-                send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins")
-            else:
-                send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins")
+    if message == ".rate":
+        rate = akaiyen_rate(author)
+        send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins")
