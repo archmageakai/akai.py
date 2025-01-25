@@ -140,8 +140,8 @@ def akaiyen_rate(author):
 
     # This part is outside the try block
     if yentotal == 0:
-        print("1 akaiyen = 1 gikocoin")
-        rate = 1
+        rate = 10
+        print("1 akaiyen = {rate} gikocoin")
     else:
         rate = yentotal * 10.00
         rate = round(rate)  # Round to the nearest integer
@@ -258,7 +258,7 @@ def monitor(author, namespace, send_message):
     if message == ".akaiyen_rate":
         rate = akaiyen_rate(author)  # Corrected function call
         if rate is not None:
-            if rate == 1:
+            if rate == 0.10:
                 send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins")
             else:
                 send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins")
