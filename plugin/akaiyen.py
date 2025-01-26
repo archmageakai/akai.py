@@ -105,6 +105,51 @@ def check_balance(author, send_message):
         # Catch unexpected errors
         print(f"[ERROR] An error occurred while checking balance: {e}")
         send_message(f"An error occurred while checking {author}'s balance.")
+        
+def check_total(author, send_message):
+    """
+    Check the earnings of a user from the totalyen.txt file and send a message with the total earnings.
+    Handles usernames with spaces, special characters, and other non-standard formats.
+    Performs case-sensitive matching for the username.
+    """
+    try:
+        with open(mula, "r") as f:
+            for line in f:
+                # Split the line into username and amount, assuming the amount is the last part
+                parts = line.rsplit(maxsplit=1)
+                if len(parts) == 2:
+                    stored_user, amount = parts
+                    # Match the username exactly (case-sensitive)
+                    if stored_user.strip() == author.strip():
+                        try:
+                            earnings = float(amount)  # Ensure the amount is a valid number
+                            send_message(f"{author} has a total earnings of {earnings:.2f} akaiyen.")
+                            return
+                        except ValueError:
+                            print(f"[ERROR] Invalid format for user {stored_user}: {amount}")
+                            send_message(f"An error occurred while checking {author}'s balance.")
+                            return
+
+        # If the user is not found
+        send_message(f"{author} has no akaiyen balance.")
+    except FileNotFoundError:
+        # Handle the case where the file does not exist
+        send_message(f"No balance file found. {author} has no akaiyen balance.")
+    except Exception as e:
+        # Catch unexpected errors
+        print(f"[ERROR] An error occurred while checking balance: {e}")
+        send_message(f"An error occurred while checking {author}'s balance.")
+
+    
+        # If the user is not found
+        send_message(f"{author} has no akaiyen balance.")
+    except FileNotFoundError:
+        # Handle the case where the file does not exist
+        send_message(f"No balance file found. {author} has no akaiyen balance.")
+    except Exception as e:
+        # Catch unexpected errors
+        print(f"[ERROR] An error occurred while checking balance: {e}")
+        send_message(f"An error occurred while checking {author}'s balance.")
 
 def akaiyen_rate(author):
     """
@@ -227,11 +272,11 @@ def monitor(author, namespace, send_message):
     # HELP
     if message == ".help":
         send_message(f"Convert gikocoins to akaiyen using !send <amount> akai.py◆NEET")
-        send_message(f"'Commands': .akai | .yen | .rate")
+        send_message(f"'Commands': .akai | .yen | .rate | .total")
 
     # akai
-    if message == ".akai":
-        send_message(f"https://akai.gikopoi.com")
+    if message == ".site":
+        send_message(f"https://akai.gikopoi.com/akai.py")
 
     # CHECK BALANCE
     if message == ".yen":
@@ -240,4 +285,8 @@ def monitor(author, namespace, send_message):
     # CHECK RATE
     if message == ".rate":
         rate = akaiyen_rate(author)
-        send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins")
+        send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins [see more info: https://akai.gikopoi.com/akai.py/rate.html]")
+    
+    # CHECK TOTAL EARNINGS
+    if message == ".total":
+        check_total(author, send_message)
