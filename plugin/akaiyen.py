@@ -285,7 +285,7 @@ def monitor(author, namespace, send_message):
     # CHECK RATE
     if message == ".rate":
         rate = akaiyen_rate(author)
-        send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins [see more info: https://akai.gikopoi.com/akai.py/rate.html]")
+        send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins [ see more info: https://akai.gikopoi.com/akai.py/rate.html ]")
     
     # CHECK TOTAL EARNINGS
     if message == ".total":
