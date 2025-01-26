@@ -10,6 +10,10 @@ def send(author, message, send_message):
     """
     Handle messages to detect when a user sends coins to akai.py and process them.
     """
+    
+    transaction = False
+    akaiyen_total_transfer = 0.00
+    
     if author == "giko.py◆BOT":
         match = re.match(r"^(.+) sent akai\.py◆NEET (\d+) gikocoins$", message)
         if match:
@@ -17,36 +21,43 @@ def send(author, message, send_message):
             coins = int(match.group(2))
             print(f"[AKAIYEN] Detected {author} has sent akai.py◆NEET {coins} gikocoins.")
 
-            akaiyen = 0.00  # Initialize total akaiyen to accumulate the conversion
-
-            # Process each gikocoin individually            
-            print(f"[AKAIYEN] start loop")
-            for _ in range(coins):
-                rate = akaiyen_rate(author)
-                akaiyen_i = 1 / rate
-                akaiyen += akaiyen_i
-            print(f"[AKAIYEN] loop finished")
-            
-            akaiyen = math.ceil(akaiyen * 100) / 100
-            # Update the user's balance after all conversions
-            print(f"[AKAIYEN] writing to bank/records")
-            write_to_file(author, akaiyen)  # Write the accumulated total akaiyen
-            write_to_totalyen(author, akaiyen)  # Write the accumulated total akaiyen
-
-            if akaiyen == 0.00:
-                # Handle case where no akaiyen could be converted
+            if coins > 10000:
                 send_message(f"!send {coins} {author}")
                 send_message(
-                    f"Here is a refund, {author}! Please send enough gikocoins to convert to at least 0.01 akaiyen. (1 akaiyen = {rate} gikocoins.)"
+                    f"Here is a refund, {author}! We only accept a maximum transfer of 10000 gikocoins at this time."
                 )
-            else:
-                # Send a message to the user with the total converted amount
-                send_message(f"Thank you for your donation, {author}! You received {akaiyen:.2f} akaiyen.")
+                print(f"[AKAIYEN] for {author}, refund {coins} gikocoins due to over max transfers")
+            else:               
+                # Process each gikocoin individually      
+                print(f"[AKAIYEN] start loop - reading coins/rates, writing to bank/records")
+                for _ in range(coins):
+                    akaiyen = 0.00
+                    rate = akaiyen_rate(author)
+                    akaiyen_i = 1 / rate
+                    akaiyen += akaiyen_i
+                    akaiyen_total_transfer += akaiyen_i
+                    write_to_file(author, akaiyen)  
+                    write_to_totalyen(author, akaiyen)
+                print(f"[AKAIYEN] loop finished")
+                transaction = True
+                
+            if transaction == True:
+                if akaiyen_total_transfer == 0.00:
+                    # Handle case where no akaiyen could be converted
+                    send_message(f"!send {coins} {author}")
+                    send_message(
+                    f"Here is a refund, {author}! Please send enough gikocoins to convert to at least 0.01 akaiyen."
+                    )
+                    print(f"[AKAIYEN] for {author}, refund {coins} gikocoins, not enough gikocoins to make at least 0.01 akaiyen.")
+                else:
+                    # Send a message to the user with the total converted amount
+                    send_message(f"Thank you for your purchase, {author}! You received {akaiyen_total_transfer:.2f} akaiyen.")
+                    print(f"[AKAIYEN] {author} received {akaiyen_total_transfer:.2f} akaiyen.")
 
-                # Check the balance after the donation
-                check_balance(author, send_message)
+                    # Check the balance after the purchase
+                    check_balance(author, send_message)
 
-            return {"author": author, "akaiyen": akaiyen}
+            return {"author": author, "akaiyen": akaiyen_total_transfer}
 
     return None
 
@@ -97,7 +108,7 @@ def check_balance(author, send_message):
 
 def akaiyen_rate(author):
     """
-    Calculate the rate of 1 akaiyen based on the total akaiyen in user wallet.
+    Calculate the rate of 1 akaiyen based on the total akaiyen in total akaiyen user has ever acquired.
     """
     yentotal = 0  # Initialize yentotal to a default value
 
@@ -125,9 +136,9 @@ def akaiyen_rate(author):
 
     # Determine the rate dynamically
     rate = 10  # Start with the base rate
-    threshold = 100.00  # Initial threshold
+    threshold = 100  # Initial threshold
 
-    while yentotal > threshold:
+    while yentotal >= threshold:
         rate *= 10  # Increase the rate by a factor of 10
         threshold *= 10  # Increase the threshold by a factor of 10
 
@@ -140,11 +151,8 @@ def write_to_file(author, akaiyen):
     
     os.makedirs(os.path.dirname(bankfn), exist_ok=True)
 
-    print(f"[AKAIYEN] Writing to file {bankfn}...")
-
     records = {}
     if os.path.exists(bankfn):
-        print(f"[AKAIYEN] File {bankfn} found, reading...")
         with open(bankfn, "r") as f:
             for line in f:
                 # Use rsplit(maxsplit=1) to handle spaces in the username
@@ -160,17 +168,14 @@ def write_to_file(author, akaiyen):
     # Update the user's record
     if author in records:
         records[author] += akaiyen  # Add the new coins to the existing amount
-        print(f"[AKAIYEN] {author} already exists. Adding {akaiyen} akaiyen.")
     else:
         records[author] = akaiyen  # Add a new record for the user
-        print(f"[AKAIYEN] {author} not found. Adding new record with {akaiyen} akaiyen.")
 
     # Write the updated records back to the file
     try:
         with open(bankfn, "w") as f:
             for user, amount in records.items():
                 f.write(f"{user} {amount:.2f}\n")  # Store as float with 2 decimal places
-        print(f"[AKAIYEN] Updated {bankfn}: {author} now has {records[author]:.2f} akaiyen.")
     except Exception as e:
         print(f"[AKAIYEN] Error writing to file: {e}")
         
@@ -181,11 +186,8 @@ def write_to_totalyen(author, akaiyen):
     
     os.makedirs(os.path.dirname(mula), exist_ok=True)
 
-    print(f"[AKAIYEN] Writing to file {mula}...")
-
     records = {}
     if os.path.exists(mula):
-        print(f"[AKAIYEN] File {mula} found, reading...")
         with open(mula, "r") as f:
             for line in f:
                 # Use rsplit(maxsplit=1) to handle spaces in the username
@@ -201,17 +203,14 @@ def write_to_totalyen(author, akaiyen):
     # Update the user's record
     if author in records:
         records[author] += akaiyen  # Add the new coins to the existing amount
-        print(f"[AKAIYEN] {author} already exists. Adding {akaiyen} akaiyen.")
     else:
         records[author] = akaiyen  # Add a new record for the user
-        print(f"[AKAIYEN] {author} not found. Adding new record with {akaiyen} akaiyen.")
 
     # Write the updated records back to the file
     try:
         with open(mula, "w") as f:
             for user, amount in records.items():
                 f.write(f"{user} {amount:.2f}\n")  # Store as float with 2 decimal places
-        print(f"[AKAIYEN] Updated {mula}: {author} now has {records[author]:.2f} akaiyen.")
     except Exception as e:
         print(f"[AKAIYEN] Error writing to file: {e}")
 
