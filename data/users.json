@@ -1,0 +1,58 @@
+{
+    "users": [
+        {
+            "player_name": "Akai",
+            "currencies": {
+                "yen": 1,
+                "gross_yen": 1
+            },
+            "gacha": {
+                "today": 14,
+                "guarantee": 13,
+                "total": 38
+            },
+            "items": {
+                "1": 3,
+                "2": 1,
+                "3": 2
+            },
+            "blades": {
+                "1": {
+                    "core_slots": {
+                        "available": 7,
+                        "used": 0,
+                        "broken": 0
+                    }
+                },
+                "2": {
+                    "core_slots": {
+                        "available": 7,
+                        "used": 0,
+                        "broken": 0
+                    }
+                },
+                "3": {
+                    "core_slots": {
+                        "available": 7,
+                        "used": 0,
+                        "broken": 0
+                    }
+                },
+                "4": {
+                    "core_slots": {
+                        "available": 1,
+                        "used": 0,
+                        "broken": 6
+                    }
+                },
+                "5": {
+                    "core_slots": {
+                        "available": 6,
+                        "used": 1,
+                        "broken": 0
+                    }
+                }
+            }
+        }
+    ]
+}

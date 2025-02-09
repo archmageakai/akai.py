@@ -1,0 +1,54 @@
+{
+    "items": [
+      {
+        "item_ID": 1,
+        "item_name": "Health Potion",
+        "Rarity": "Average",
+        "Value": "",
+        "item_description": "A basic potion that restores a 20 HP."
+      },
+      {
+        "item_ID": 2,
+        "item_name": "Ether potion",
+        "Rarity": "Average",
+        "Value": "",
+        "item_description": "A basic potion that restores 20 EP."
+      },
+      {
+        "item_ID": 3,
+        "item_name": "Ginger Ale",
+        "Rarity": "Rare",
+        "Value": "",
+        "item_description": "A special drink that restores 30% HP & 40% MP."
+      },
+      {
+        "item_ID": 4,
+        "item_name": "Root Beer",
+        "Rarity": "Rare",
+        "Value": "",
+        "item_description": "A special drink that restores 50% HP & 20% MP."
+      },
+      {
+        "item_ID": 5,
+        "item_name": "Silver Clock",
+        "Rarity": "Super Rare",
+        "Value": "",
+        "item_description": "Freezes enemy in time for 1 turn."
+      },
+      {
+        "item_ID": 6,
+        "item_name": "Golden Clock",
+        "Rarity": "Legendary",
+        "Value": "",
+        "item_description": "Freezes enemy in time for 3 turns."
+      },
+      {
+        "item_ID": 7,
+        "item_name": "Phoenix Feather",
+        "Rarity": "Legendary",
+        "Value": "",
+        "item_description": "Repairs a broken Blade core slot."
+      }
+    ]
+  }
+  
