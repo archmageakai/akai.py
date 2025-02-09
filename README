@@ -1,4 +1,6 @@
 A bot for https://play.gikopoi.com
+[based on]: https://github.com/153/giko.py/
+
 python3 akai.py [room here, if blank defaults to bar]
 refer to rooms.txt for rooms id
 

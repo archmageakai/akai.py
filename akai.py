@@ -5,6 +5,7 @@ import requests
 import sys
 import os
 
+from plugin import help
 from plugin import akaiyen
 
 sio = socketio.Client()
@@ -18,6 +19,11 @@ anon_name = "Spy"
 anti_spy = False
 ircmode = False
 ircroom = "null"
+tripcode = True
+
+if tripcode is True:
+    with open(os.path.expanduser("~/tripcode.txt"), "r") as trip:
+        trip = trip.read().splitlines()[0].strip()
 
 # Initialize seen as a dictionary
 seen = {}
@@ -47,10 +53,11 @@ def main():
     character = input("Enter your giko (default: akai): ")
     if not character:
         character = "akai"
-    name = input("Enter your username (default: akai.py): ")
-    if not name:
-        name = "akai.py"
-    password = "akai"
+    name = "akai.py"
+    password = "VIPQUALITY"
+    if tripcode:
+        name = name + "#" + trip
+
 
     if len(sys.argv) > 1:
         print(sys.argv)
@@ -256,8 +263,8 @@ def server_msg(event, namespace):
     print(msg)
     log_to_file(msg)
     
-    # akaiyen verification handler
-    akaiyen.monitor(author, namespace, send_message)
+    help.cmd(author, namespace, send_message)
+    akaiyen.cmd(author, namespace, send_message)
 
     if (author == anon_name) and anti_spy:
         return

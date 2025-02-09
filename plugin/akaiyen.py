@@ -259,7 +259,7 @@ def write_to_totalyen(author, akaiyen):
     except Exception as e:
         print(f"[AKAIYEN] Error writing to file: {e}")
 
-def monitor(author, namespace, send_message):
+def cmd(author, namespace, send_message):
     """
     Monitor incoming messages and act on specific patterns.
     """
@@ -269,14 +269,9 @@ def monitor(author, namespace, send_message):
     if author and message:
         result = send(author, message, send_message)
 
-    # HELP
-    if message == ".help":
-        send_message(f"Convert gikocoins to akaiyen using !send <amount> akai.py◆NEET")
-        send_message(f"'Commands': .site | .yen | .rate | .total")
-
-    # akai
-    if message == ".site":
-        send_message(f"https://akai.gikopoi.com/akai.py")
+    # HOW TO CONVERT GIKOCOINS TO AKAIYEN
+    if message == ".convert":
+        send_message(f"Convert gikocoins to akaiyen typing !send <amount> akai.py◆NEET")
 
     # CHECK BALANCE
     if message == ".yen":
