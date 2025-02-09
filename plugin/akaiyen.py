@@ -261,7 +261,7 @@ def cmd(author, namespace, send_message):
 
     # HOW TO CONVERT GIKOCOINS TO AKAIYEN
     if message == ".convert":
-        send_message(f"Convert gikocoins to akaiyen typing !send <amount> akai.py◆NEET")
+        send_message(f"[Convert gikocoins to akaiyen] type !send <amount> akai.py◆NEET")
 
     # CHECK BALANCE
     if message == ".yen":
