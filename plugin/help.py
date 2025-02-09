@@ -1,3 +1,5 @@
+""" "gacha": "gacha commands: .gacha | .pull | .guarantee" """
+
 def cmd(author, namespace, send_message):
 
     helptable = {
@@ -12,7 +14,7 @@ def cmd(author, namespace, send_message):
 
     if msg[0] == ".help":
         if len(msg) == 1:
-            output.append("[ List of topics | type .help <topic> ]: " + ", ".join(topics))
+            output.append("List of topics (type .help <topic>): " + " | ".join(topics))
         elif len(msg) > 1 and msg[1] in topics:
             output.append(helptable[msg[1]])
 

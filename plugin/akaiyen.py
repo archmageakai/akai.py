@@ -253,7 +253,7 @@ def cmd(author, namespace, send_message):
     """
     Monitor incoming messages and act on specific patterns.
     """
-    message = namespace
+    message = namespace.strip()
     result = None
 
     if author and message:
@@ -261,13 +261,15 @@ def cmd(author, namespace, send_message):
 
     # HOW TO CONVERT GIKOCOINS TO AKAIYEN
     if message == ".convert":
-        send_message(f"[Convert gikocoins to akaiyen] type !send <amount> akai.py◆NEET")
+        send_message(f"Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen.")
 
     # CHECK BALANCE
     if message == ".yen":
         balance = check_balance(author)
         if balance is not None:
             send_message(f"{author} has a total balance of {balance:.2f} akaiyen.")
+        else:
+            send_message(f"{author} does not have any akaiyen!")
 
     # CHECK RATE
     if message == ".rate":
