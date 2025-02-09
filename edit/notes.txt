@@ -1,0 +1,52 @@
+*make itemid.txt
+---
+Item_id, name
+1 Example1
+2 Example2
+---
+
+*make inventory.txt
+---
+user name 1 99; 2 33;
+---
+
+=== .inventory ===
+
+pulls from inventory.txt to show ouput:
+"[user's inventory] item1 x99, item2 x01"
+
+*make todaypull.txt -- for max pulls, lets say 10 pulls is max in a day
+---
+user name 10 // maxed out
+username2 0 // no pulls
+---
+
+*make guaranteepull.txt
+---
+username 24 // this user has pulled 24 times w/o a 5 star
+---
+
+when you pull a 5 star, it sets back to 0. 
+check this file before rolling to guarantee 5 star on 25th pull,
+so if guarantee = 24, then guarantee a 5 star.
+roll btwn the 5 stars available for user.
+
+[[run script to check time, reset all pulls to 0 for each line at 00:00 UTC]]
+
+One gacha pull is 10 akaiyen for example. 
+so your first 10 pulls are in the 100 akaiyen threshold...
+(before rates climb higher)
+
+we could even use this so that y
+
+=== .gacha ===
+
+roll perhaps on a 1000 sided dice
+950 and up is a 5 star for ex
+800 and up is a 4 star for ex
+
+if lets say a 5 star is selected,
+lets say there is 10 total 5 stars, then roll a 10d
+and if you get 1, you get the 5 star corresponding to 1
+
+more work on this later...
