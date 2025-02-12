@@ -83,20 +83,20 @@ def check_balance(author):
                             return balance  # Return balance value
                         except ValueError:
                             print(f"[ERROR] Invalid balance format for user {stored_user}: {amount}")
-                            return None  # Return None if the amount is invalid
-
+                            return None
+                        
         # If the user is not found, return None
         return None
     except FileNotFoundError:
         # Handle the case where the file does not exist
-        print(f"[ERROR] No balance file found for {author}.")
+        print(f"[ERROR] No balance file found for check_balance().")
         return None
     except Exception as e:
         # Catch unexpected errors
         print(f"[ERROR] An error occurred while checking balance: {e}")
         return None
         
-def check_total(author, send_message):
+def check_total(author):
     """
     Check the earnings of a user from the totalyen.txt file and send a message with the total earnings.
     Handles usernames with spaces, special characters, and other non-standard formats.
@@ -113,33 +113,17 @@ def check_total(author, send_message):
                     if stored_user.strip() == author.strip():
                         try:
                             earnings = float(amount)  # Ensure the amount is a valid number
-                            send_message(f"{author} has a total earnings of {earnings:.2f} akaiyen.")
                             return
                         except ValueError:
                             print(f"[ERROR] Invalid format for user {stored_user}: {amount}")
-                            send_message(f"An error occurred while checking {author}'s balance.")
-                            return
-
-        # If the user is not found
-        send_message(f"{author} has no akaiyen balance.")
+                            return None
+        
     except FileNotFoundError:
         # Handle the case where the file does not exist
-        send_message(f"No balance file found. {author} has no akaiyen balance.")
+        print(f"[ERROR] No balance file found for check_total().")
     except Exception as e:
         # Catch unexpected errors
         print(f"[ERROR] An error occurred while checking balance: {e}")
-        send_message(f"An error occurred while checking {author}'s balance.")
-
-    
-        # If the user is not found
-        send_message(f"{author} has no akaiyen balance.")
-    except FileNotFoundError:
-        # Handle the case where the file does not exist
-        send_message(f"No balance file found. {author} has no akaiyen balance.")
-    except Exception as e:
-        # Catch unexpected errors
-        print(f"[ERROR] An error occurred while checking balance: {e}")
-        send_message(f"An error occurred while checking {author}'s balance.")
 
 def akaiyen_rate(author):
     """
@@ -278,4 +262,10 @@ def cmd(author, namespace, send_message):
     
     # CHECK TOTAL EARNINGS
     if message == ".total":
+        earnings = check_total(author)
+        if earnings is not None:
+            send_message(f"{author} has a total earnings of {earnings:.2f} akaiyen.")
+        else:
+            send_message(f"{author} has no total earnings.")
+
         check_total(author, send_message)

@@ -47,6 +47,60 @@
                 },
                 "5": {
                     "core_slots": {
+                        "available": 7,
+                        "used": 0,
+                        "broken": 0
+                    }
+                }
+            }
+        },
+        {
+            "player_name": "Bob",
+            "currencies": {
+                "yen": 5,
+                "gross_yen": 10
+            },
+            "gacha": {
+                "today": 3,
+                "guarantee": 11,
+                "total": 51
+            },
+            "items": {
+                "1": 2,
+                "2": 3,
+                "3": 4
+            },
+            "blades": {
+                "1": {
+                    "core_slots": {
+                        "available": 6,
+                        "used": 1,
+                        "broken": 0
+                    }
+                },
+                "2": {
+                    "core_slots": {
+                        "available": 5,
+                        "used": 0,
+                        "broken": 1
+                    }
+                },
+                "3": {
+                    "core_slots": {
+                        "available": 8,
+                        "used": 2,
+                        "broken": 0
+                    }
+                },
+                "4": {
+                    "core_slots": {
+                        "available": 4,
+                        "used": 0,
+                        "broken": 2
+                    }
+                },
+                "5": {
+                    "core_slots": {
                         "available": 6,
                         "used": 1,
                         "broken": 0

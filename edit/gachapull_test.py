@@ -10,7 +10,7 @@ pull = input("Do you want to do a pull? (y/n): ").strip().lower()
 
 if pull == 'y':
 
-    gacha_data = users_data["users"][0]["gacha"]
+    gacha_data = users_data["users"][1]["gacha"]
     
     gacha_data["today"] += 1
     print(f"TODAY: {gacha_data['today']}")
