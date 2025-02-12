@@ -113,7 +113,7 @@ def check_total(author):
                     if stored_user.strip() == author.strip():
                         try:
                             earnings = float(amount)  # Ensure the amount is a valid number
-                            return
+                            return earnings
                         except ValueError:
                             print(f"[ERROR] Invalid format for user {stored_user}: {amount}")
                             return None
@@ -267,5 +267,3 @@ def cmd(author, namespace, send_message):
             send_message(f"{author} has a total earnings of {earnings:.2f} akaiyen.")
         else:
             send_message(f"{author} has no total earnings.")
-
-        check_total(author, send_message)
