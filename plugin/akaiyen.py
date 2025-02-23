@@ -5,6 +5,7 @@ import math
 
 bankfn = os.path.expanduser("~/akaipy-data/akaiyen.txt")
 mula = os.path.expanduser("~/akaipy-data/totalyen.txt")
+lotto = os.path.expanduser("~/akaipy-data/lotto.txt")
 
 def send(author, message, send_message):
     """
@@ -96,7 +97,7 @@ def check_balance(author):
         print(f"[ERROR] An error occurred while checking balance: {e}")
         return None
         
-def check_total(author):
+def check_gross(author):
     """
     Check the earnings of a user from the totalyen.txt file and send a message with the total earnings.
     Handles usernames with spaces, special characters, and other non-standard formats.
@@ -233,10 +234,30 @@ def write_to_totalyen(author, akaiyen):
     except Exception as e:
         print(f"[AKAIYEN] Error writing to file: {e}")
 
+def lottery(added_value):
+    """
+    akai's lottery, to be used in the future
+    """
+    lotto_file = os.path.expanduser("~/akaipy-data/lotto.txt")
+    
+    try:
+        # check file
+        if os.path.exists(lotto_file) and os.path.getsize(lotto_file) > 0:
+            with open(lotto_file, "r") as file:
+                current_value = float(file.read().strip()) # read value
+        else:
+            current_value = 0.0  # Initialize to 0 if file is empty or doesn't exist
+
+        updated_value = current_value + added_value
+
+        with open(lotto_file, "w") as file:
+            file.write(f"{updated_value}\n")
+    
+    except Exception as e:
+        print(f"Error: {e}")
+
 def cmd(author, namespace, send_message):
-    """
-    Monitor incoming messages and act on specific patterns.
-    """
+
     message = namespace.strip()
     result = None
 
@@ -248,10 +269,10 @@ def cmd(author, namespace, send_message):
         send_message(f"Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen.")
 
     # CHECK BALANCE
-    if message == ".yen":
+    if message == ".balance":
         balance = check_balance(author)
         if balance is not None:
-            send_message(f"{author} has a total balance of {balance:.2f} akaiyen.")
+            send_message(f"{author} has a balance of {balance:.2f} akaiyen.")
         else:
             send_message(f"{author} does not have any akaiyen!")
 
@@ -260,10 +281,10 @@ def cmd(author, namespace, send_message):
         rate = akaiyen_rate(author)
         send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins [ see more info: https://akai.gikopoi.com/akai.py/rate.html ]")
     
-    # CHECK TOTAL EARNINGS
-    if message == ".total":
-        earnings = check_total(author)
+    # CHECK GROSS
+    if message == ".gross":
+        earnings = check_gross(author)
         if earnings is not None:
-            send_message(f"{author} has a total earnings of {earnings:.2f} akaiyen.")
+            send_message(f"{author} has a gross earnings of {earnings:.2f} akaiyen.")
         else:
-            send_message(f"{author} has no total earnings.")
+            send_message(f"{author} has no gross earnings.")

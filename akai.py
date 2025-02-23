@@ -7,6 +7,7 @@ import os
 
 from plugin import help
 from plugin import akaiyen
+from plugin import gacha
 
 sio = socketio.Client()
 session = requests.Session()
@@ -263,8 +264,14 @@ def server_msg(event, namespace):
     print(msg)
     log_to_file(msg)
     
+    # help.py
     help.cmd(author, namespace, send_message)
+    
+    # akaiyen.py
     akaiyen.cmd(author, namespace, send_message)
+
+    # gacha.py
+    gacha.cmd(author, namespace, send_message)
 
     if (author == anon_name) and anti_spy:
         return

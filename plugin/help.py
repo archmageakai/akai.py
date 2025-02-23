@@ -1,10 +1,10 @@
-""" "gacha": "gacha commands: .gacha | .pull | .guarantee" """
+
 
 def cmd(author, namespace, send_message):
 
     helptable = {
-        "akaiyen": "akaiyen commands: .convert | .yen | .rate | .total",
-        
+        "akaiyen": "akaiyen commands: .convert | .balance | .rate | .gross",
+        # "gacha": "gacha commands: .gacha | .pull | .guarantee",
     }
 
     message = namespace.strip()
