@@ -81,11 +81,11 @@ MAX_PULLS = 5
 
 ##### Gacha Rates ######
 gacha_rates = {
-    "5-star": 0.02,  # 2% chance for a 5-star
-    "4-star": 0.05,  # 5% chance for a 4-star
-    "3-star": 0.15,  # 10% chance for a 3-star
-    "2-star": 0.25,  # 33% chance for a 2-star
-    "1-star": 0.50,   # 50% chance for a 1-star
+    "5-star": 0.02,
+    "4-star": 0.05,
+    "3-star": 0.15,
+    "2-star": 0.33,
+    "1-star": 0.50,
 }
 
 def pull(author, send_message, users_data):
