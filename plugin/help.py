@@ -3,8 +3,8 @@
 def cmd(author, namespace, send_message):
 
     helptable = {
-        "akaiyen": "akaiyen commands: .convert | .balance | .rate | .gross",
-        # "gacha": "gacha commands: .gacha | .pull | .guarantee",
+        "akaiyen": "akaiyen commands: .convert | .balance | .yen_rate | .gross",
+        "gacha": "gacha commands: .gacha | .gacha_rate",
     }
 
     message = namespace.strip()

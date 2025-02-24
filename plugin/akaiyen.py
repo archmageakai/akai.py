@@ -277,7 +277,7 @@ def cmd(author, namespace, send_message):
             send_message(f"{author} does not have any akaiyen!")
 
     # CHECK RATE
-    if message == ".rate":
+    if message == ".yen_rate":
         rate = akaiyen_rate(author)
         send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins [ see more info: https://akai.gikopoi.com/akai.py/rate.html ]")
     

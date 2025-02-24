@@ -7,7 +7,7 @@
                 "gross_yen": 1
             },
             "gacha": {
-                "today": 5,
+                "today": 0,
                 "guarantee": 13,
                 "total": 38
             },
@@ -61,7 +61,7 @@
                 "gross_yen": 10
             },
             "gacha": {
-                "today": 3,
+                "today": 0,
                 "guarantee": 11,
                 "total": 51
             },
@@ -115,26 +115,67 @@
                 "gross_yen": 0
             },
             "gacha": {
-                "today": -999999999999894,
-                "guarantee": 0,
-                "total": 0
+                "today": -99999888,
+                "guarantee": 23,
+                "total": 149
             },
             "items": {
-                "1": 56,
-                "2": 33,
-                "3": 1,
+                "1": 155,
+                "2": 72,
+                "3": 3,
                 "4": 2,
-                "5": 2,
-                "6": 1
+                "5": 4,
+                "6": 2,
+                "7": 1
             },
             "blades": {
-                "1": {
+                "2": {
                     "core_slots": {
                         "available": 7,
                         "used": 0,
                         "broken": 0
                     }
                 },
+                "3": {
+                    "core_slots": {
+                        "available": 7,
+                        "used": 0,
+                        "broken": 0
+                    }
+                },
+                "4": {
+                    "core_slots": {
+                        "available": 7,
+                        "used": 0,
+                        "broken": 0
+                    }
+                },
+                "5": {
+                    "core_slots": {
+                        "available": 7,
+                        "used": 0,
+                        "broken": 0
+                    }
+                }
+            }
+        },
+        {
+            "player_name": "meow\u25c6meow/DrxXk",
+            "currencies": {
+                "yen": 0,
+                "gross_yen": 0
+            },
+            "gacha": {
+                "today": -999999999996,
+                "guarantee": 9,
+                "total": 9
+            },
+            "items": {
+                "1": 3,
+                "2": 2,
+                "4": 2
+            },
+            "blades": {
                 "2": {
                     "core_slots": {
                         "available": 7,
@@ -150,6 +191,20 @@
                     }
                 }
             }
+        },
+        {
+            "player_name": "Spy",
+            "currencies": {
+                "yen": 0,
+                "gross_yen": 0
+            },
+            "gacha": {
+                "today": 0,
+                "guarantee": 0,
+                "total": 0
+            },
+            "items": {},
+            "blades": {}
         }
     ]
 }

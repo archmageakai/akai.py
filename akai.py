@@ -6,6 +6,7 @@ import sys
 import os
 
 from plugin import help
+from plugin import reset
 from plugin import akaiyen
 from plugin import gacha
 
@@ -47,6 +48,10 @@ def upd_seen(username):
     seen[username] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 def main():
+    print("[*] Starting reset thread...")
+    reset.start()
+    print("[*] Reset thread started!")
+
     global api
     server = "play.gikopoi.com"
     area = "for"

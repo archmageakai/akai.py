@@ -1,4 +1,5 @@
 import random
+import time
 import json
 import os
 from plugin.akaiyen import check_balance, write_to_file, lottery
@@ -6,6 +7,7 @@ from plugin.akaiyen import check_balance, write_to_file, lottery
 """
 
 ** change/style output (debug/terminal as well as gikopoi sendmsg) messages
+** incl. [BLADE] or [ITEM] at beginning of pulled_item as well as [*-STAR] at end
 
 """
 
@@ -73,8 +75,9 @@ def get_user(author, users_data):
 
     return user_data
 
-##### Gacha pull price #####
+##### important variables #####
 GACHA_PULL_PRICE = 1.99
+MAX_PULLS = 5
 
 ##### Gacha Rates ######
 gacha_rates = {
@@ -85,27 +88,19 @@ gacha_rates = {
     "1-star": 0.50,   # 50% chance for a 1-star
 }
 
-def gacha_main(author, send_message):
-    """
-    .gacha - Lets you know gacha news and how many pulls available
-    at the moment, uses pull function
-    """
-    users_data = load_users()
+def pull(author, send_message, users_data):
 
-    # Get or create the user
+    # Load or create the user's data
     user_data = get_user(author, users_data)
 
+    # Check how many pulls the user has done today and the remaining pulls
     gacha_today = user_data.get("gacha", {}).get("today", 0)
-    max_pulls = 5
-    remaining_pulls = max_pulls - gacha_today
+    remaining_pulls = MAX_PULLS - gacha_today
 
-    if remaining_pulls > 0:
-        pull(author, send_message, user_data, users_data)
-        send_message(f"Thank you {author}, you spent {GACHA_PULL_PRICE} akaiyen. [{remaining_pulls} / {max_pulls} pull(s) remaining for today]")
-    else:
-        send_message(f"{author}, you've already pulled {max_pulls} times today. Please try again tomorrow.")
-
-def pull(author, send_message, user_data, users_data):
+    if remaining_pulls <= 0:
+        send_message(f"{author}, you've already pulled {MAX_PULLS} times today. Please try again tomorrow.")
+        return
+    
     items = load_items()
     blades = load_blades()
 
@@ -114,7 +109,7 @@ def pull(author, send_message, user_data, users_data):
 
     user_balance = check_balance(author)
     if user_balance is None:
-        send_message(f"{author}: You do not have any akaiyen. Please type '.help akaiyen' command to start transferring gikocoins to akaiyen!")
+        send_message(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull.")
         return
 
     if user_balance < GACHA_PULL_PRICE:
@@ -131,9 +126,16 @@ def pull(author, send_message, user_data, users_data):
     while item_pulled is None:  # Keep rolling until a valid item is obtained
         r_roll = random.random()
 
+        if user_data["gacha"]["guarantee"] >= 24:
+            print(f"{author}, you have a guaranteed 5-star item!")
+            # Force a 5-star pull
+            r_roll = 0.00
+            guarantee = True
+
         # ROLLS
         if r_roll < gacha_rates["5-star"]:
-            if roll_for_blade(1.0) and any(blade["Rarity"] == "5-star" for blade in blades): 
+            user_data["gacha"]["guarantee"] = 0
+            if roll_for_blade(0.10) and any(blade["Rarity"] == "5-star" for blade in blades): 
                 potential_blades = [blade for blade in blades if blade["Rarity"] == "5-star"]
                 item_pulled = random.choice(potential_blades)
                 is_blade = True
@@ -141,7 +143,8 @@ def pull(author, send_message, user_data, users_data):
                 item_pulled = random.choice([item for item in items if item["Rarity"] == "5-star"])
 
         elif r_roll < gacha_rates["5-star"] + gacha_rates["4-star"]:
-            if roll_for_blade(1.0) and any(blade["Rarity"] == "4-star" for blade in blades): 
+            user_data["gacha"]["guarantee"] += 1
+            if roll_for_blade(0.20) and any(blade["Rarity"] == "4-star" for blade in blades): 
                 potential_blades = [blade for blade in blades if blade["Rarity"] == "4-star"]
                 item_pulled = random.choice(potential_blades)
                 is_blade = True
@@ -149,7 +152,8 @@ def pull(author, send_message, user_data, users_data):
                 item_pulled = random.choice([item for item in items if item["Rarity"] == "4-star"])
 
         elif r_roll < gacha_rates["5-star"] + gacha_rates["4-star"] + gacha_rates["3-star"]:
-            if roll_for_blade(1.0) and any(blade["Rarity"] == "3-star" for blade in blades): 
+            user_data["gacha"]["guarantee"] += 1
+            if roll_for_blade(0.30) and any(blade["Rarity"] == "3-star" for blade in blades): 
                 potential_blades = [blade for blade in blades if blade["Rarity"] == "3-star"]
                 item_pulled = random.choice(potential_blades)
                 is_blade = True
@@ -157,9 +161,11 @@ def pull(author, send_message, user_data, users_data):
                 item_pulled = random.choice([item for item in items if item["Rarity"] == "3-star"])
 
         elif r_roll < gacha_rates["5-star"] + gacha_rates["4-star"] + gacha_rates["3-star"] + gacha_rates["2-star"]:
+            user_data["gacha"]["guarantee"] += 1
             item_pulled = random.choice([item for item in items if item["Rarity"] == "2-star"])
 
         else:
+            user_data["gacha"]["guarantee"] += 1
             item_pulled = random.choice([item for item in items if item["Rarity"] == "1-star"])
 
         # Check if the user already owns the blade (if a blade was rolled)
@@ -176,6 +182,8 @@ def pull(author, send_message, user_data, users_data):
                 print(f"You already own the blade {item_pulled['blade_name']}. Rerolling...")
                 item_pulled = None  # Reroll if blade already exists
                 is_blade = False  # Reset flag to avoid infinite loop
+                if guarantee == True:
+                    user_data["gacha"]["guarantee"] = 24
                 continue  # Skip to the next iteration of the loop
 
     # Debugging: Log the pulled item
@@ -206,12 +214,14 @@ def pull(author, send_message, user_data, users_data):
 
     # Increment the user's pull count for today
     user_data["gacha"]["today"] += 1
+    user_data["gacha"]["total"] += 1
 
     # Save the updated Users data to users.json
     save_users(users_data)
-
+    
     # Confirm the pull to the user
-    send_message(f"{author}, you successfully pulled: {item_name}.")
+    #### work on making output: [ITEM/BLADE] item_name [*-STAR]
+    send_message(f"[GACHAPON!] {author}, your pull is: *** {item_name} *** [{remaining_pulls - 1} / {MAX_PULLS} pull(s) remaining for today] [you spent {GACHA_PULL_PRICE} akaiyen]")
 
 def add_to_inventory(author, item_pulled, users_data):
     """
@@ -296,4 +306,8 @@ def cmd(author, namespace, send_message):
     message = namespace.strip()
 
     if message == ".gacha":
-        gacha_main(author, send_message)
+        users_data = load_users()  # Assuming you need to load users data before calling pull
+        pull(author, send_message, users_data)
+
+    if message == ".gacha_rate":
+        send_message(f"1 pull from Gachapon = {GACHA_PULL_PRICE} akaiyen // {MAX_PULLS} pulls per day")
