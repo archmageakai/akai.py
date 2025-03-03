@@ -48,6 +48,7 @@ def sleep():
 
     # Reset "today" values after waking up
     reset_today_pull()
+    print(f"[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
 
 def start():
 

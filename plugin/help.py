@@ -1,5 +1,3 @@
-
-
 def cmd(author, namespace, send_message):
 
     helptable = {

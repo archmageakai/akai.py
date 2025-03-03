@@ -6,9 +6,10 @@ import sys
 import os
 
 from plugin import help
+from plugin import quotes
+from plugin import transform
 from plugin import reset
 from plugin import akaiyen
-from plugin import quotes
 # from plugin import gacha
 
 sio = socketio.Client()
@@ -272,15 +273,18 @@ def server_msg(event, namespace):
     
     # help.py
     help.cmd(author, namespace, send_message)
+
+    # quotes
+    quotes.cmd(author, namespace, send_message)
+
+    # transform
+    transform.cmd(author, namespace, send_message)
     
     # akaiyen.py
     akaiyen.cmd(author, namespace, send_message)
 
     # gacha.py
     # gacha.cmd(author, namespace, send_message) # call gacha
-
-    # quotes
-    quotes.cmd(author, namespace, send_message)
 
     if (author == anon_name) and anti_spy:
         return

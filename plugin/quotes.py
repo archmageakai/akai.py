@@ -11,7 +11,8 @@ def cmd(author, namespace, send_message):
             quote = get_quote("bloodninja_giko.txt")
             send_message(quote)
 #        elif msg[0] == "!command here":
-#            output.append(get_quote("txt file here"))
+#            quote = get_quote("new txt here")
+#            send_message(quote)
 
 def get_quote(fn):
     with open(f"./quotes/{fn}") as quotedb:
