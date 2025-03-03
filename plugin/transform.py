@@ -17,9 +17,14 @@ def cmd(author, namespace, send_message):
     message = namespace.strip()
     msg = message.split()
     commands = [".transform"]
+    user_list = ["Akai◆giko//JRnk", 
+                 "meow◆meow/DrxXk", 
+                 "Archduke◆cRwJk8JEBs", 
+                 "gyudon_addict◆hawaiiZtQ6"]
     
     if msg[0] in commands:
         if msg[0] == ".transform":
-            random_binary = randompull(filename)
-            ascii_output = bin_to_ascii(random_binary)
-            send_message(ascii_output)
+            if author in user_list:
+                random_binary = randompull(filename)
+                ascii_output = bin_to_ascii(random_binary)
+                send_message(ascii_output)
