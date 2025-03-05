@@ -99,6 +99,10 @@ def main():
             log_to_file(f"{tstamp} < {get_username(my_id)} > {val}")  # Log the input
             if val[0] == ",":
                 move_around(val[1:])
+
+            if val == ",get":  
+                get_user_ids()  # Call function to print user IDs  
+
             else:
                 sio.emit("user-msg", val)
         else:
@@ -221,8 +225,9 @@ def user_join(data):
                 send_message("Go to hell Spy")
         Users[user[0]] = user[1]
         tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(tstamp, "{} joined".format(user[1]))
-        log_to_file(f"{tstamp}: {user[1]} joined")
+        printJoin = f"{tstamp} {user[1]} joined (ID: {user[0]})"
+        print(printJoin)
+        log_to_file(printJoin)
         if len(user[1].strip()):
             upd_seen(user[1])
     except Exception as ex:
@@ -240,8 +245,9 @@ def user_leave(data):
     try:
         global Users
         tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(tstamp, "{} left".format(Users[data]))
-        log_to_file(f"{tstamp}: {Users[data]} left")
+        printLeave = f"{tstamp} {Users[data]} left (ID: {data})"
+        print(printLeave)
+        log_to_file(printLeave)
         if len(Users[data].strip()):
             upd_seen(Users[data])        
         del Users[data]
@@ -288,6 +294,19 @@ def server_msg(event, namespace):
 
     if (author == anon_name) and anti_spy:
         return
+
+def get_user_ids():
+    global Users
+    print("[*] Get user/ID initialized")
+    log_to_file("[*] Get user/ID initialized")
+
+    if not Users:
+        print("[*] No users found in the Users dictionary.")
+        return
+
+    for user_id, username in Users.items():
+        print(f"[*] {username} ({user_id})")
+        log_to_file(f"[*] {username} ({user_id})")
 
 def get_irc_msgs():
     while True:
