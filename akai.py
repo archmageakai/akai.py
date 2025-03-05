@@ -97,12 +97,13 @@ def main():
         if len(val):
             tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             log_to_file(f"{tstamp} < {get_username(my_id)} > {val}")  # Log the input
-            if val[0] == ",":
-                move_around(val[1:])
-
+            
+            # get user
             if val == ",get":  
-                get_user_ids()  # Call function to print user IDs  
-
+                get_user_ids()
+            
+            if val[0] == ",":
+                move_around(val[1:]) 
             else:
                 sio.emit("user-msg", val)
         else:
