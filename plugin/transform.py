@@ -28,3 +28,16 @@ def cmd(author, namespace, send_message):
                 random_binary = randompull(filename)
                 ascii_output = bin_to_ascii(random_binary)
                 send_message(ascii_output)
+            elif author not in user_list:
+                # DISREGARD MSG
+                not_authorized = (
+    "01010000 01001100 01000101 01000001 01010011 01000101 00100000 01000100 "
+    "01001001 01010011 01010010 01000101 01000111 01000001 01010010 01000100 "
+    "00100000 01000100 01001001 01010011 01010010 01000101 01000001 01000100 "
+    "00100000 01010100 01001000 01000001 01010100 00100000 01001001 00100000 "
+    "01010011 01010101 01000011 01001011 00100000 01000011 01001111 01000011 "
+    "01001011 01010011"
+)
+
+                ascii_error = bin_to_ascii(not_authorized)
+                send_message(f"#spy {author} shouts to the world, \"{ascii_error}!\"")
