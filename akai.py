@@ -93,15 +93,16 @@ def main():
     print([Users[u] for u in Users])
 
     while True:
-        val = input()  # Read input from the user
+        val = input()
         if len(val):
             tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            log_to_file(f"{tstamp} < {get_username(my_id)} > {val}")  # Log the input
+            log_to_file(f"{tstamp} < {get_username(my_id)} > {val}")
             
             # get user
             if val == ",get":  
                 get_user_ids()
             
+            # movement
             if val[0] == ",":
                 move_around(val[1:]) 
             else:
