@@ -4,6 +4,12 @@ import time
 from datetime import datetime, timedelta
 import threading
 
+"""
+
+to do : create reset log file
+
+"""
+
 def reset_today_pull():
     users_file = os.path.expanduser("./data/users.json")
 
