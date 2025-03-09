@@ -99,14 +99,14 @@ def main():
             log_to_file(f"{tstamp} < {get_username(my_id)} > {val}")
             
             # get user
-            if val == ",users":  
+            if val == ",USERS":  
                 get_user_ids()
 
             # get world
-            if val == ",world":
+            if val == ",WORLD":
                 get_world(session, server, area, pid)
 
-            if val == ",worldf":
+            if val == ",WORLDF":
                 get_world(session, server, area, pid, is_worldf=True)
             
             # movement
@@ -164,6 +164,9 @@ def logon(server, area, room, character, name, password):
     return
 
 def get_users(s: requests.Session, server, area, room):
+    
+    # check if spy is printed on initial user printout
+
     print("[*] Get Rooms Users")
     log_to_file("[*] Fetching room users")
     val = s.get(f'{server}{api}/areas/{area}/rooms/{room}',
@@ -336,7 +339,12 @@ def get_world(s: requests.Session, server, area, pid, is_worldf=False):
         if response.status_code == 200:
             room_data = response.json()
             users = room_data.get('connectedUsers', [])
-            user_list = ", ".join([f"'{user['name']}'" for user in users if user['name'].strip()])
+
+            for user in users:
+                if not user['name'].strip():
+                    user['name'] = anon_name
+
+            user_list = ", ".join([f"'{user['name']}'" for user in users])
 
             if users:
                 print(f"[*] Found {len(users)} users in {room_name}.")
@@ -344,14 +352,13 @@ def get_world(s: requests.Session, server, area, pid, is_worldf=False):
                 if is_worldf:
                     print(f"[*] Users in {room_name}:")
                     for user in users:
-                        if user['name'].strip():
-                            print(f"- {user['name']} ({user['id']})")
+                        print(f"- {user['name']} ({user['id']})")
                 else:
                     print(f"- Users in {room_name}: [{user_list}]")
                 
         else:
             print(f"[!] Error: Could not fetch data for room {room_name}." 
-                  f"Status Code: {response.status_code}")
+                  f" Status Code: {response.status_code}")
 
     print(f"[*] WORLD USERS GATHER COMPLETE.")
 
