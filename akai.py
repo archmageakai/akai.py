@@ -239,11 +239,11 @@ def user_join(data):
         if len(user[1].strip()):
             upd_seen(user[1])
     except Exception as ex:
-        error_message = f"{tstamp} * Error in user_join: {ex} [{Users[data]}]"
-        print(error_message)
-        log_to_file(error_message)
-        #print(ex)
-        #log_to_file(f"[!] Error in user_join: {ex}")
+        #error_message = f"{tstamp} * Error in user_join: {ex} [{Users[data]}]"
+        #print(error_message)
+        #log_to_file(error_message)
+        print(ex)
+        log_to_file(f"[!] Error in user_join: {ex}")
         pass
     user_list = ", ".join([Users[u] for u in Users])
     print("[+] " + str([Users[u] for u in Users]))
@@ -262,11 +262,11 @@ def user_leave(data):
             upd_seen(Users[data])        
         del Users[data]
     except Exception as ex:
-        error_message = f"{tstamp} * Error in user_leave: {ex} [{Users[data]}]"
-        print(error_message)
-        log_to_file(error_message)
-        # print(ex)
-        # log_to_file(f"[!] Error in user_leave: {ex}")
+        #error_message = f"{tstamp} * Error in user_leave: {ex} [{Users[data]}]"
+        #print(error_message)
+        #log_to_file(error_message)
+        print(ex)
+        log_to_file(f"[!] Error in user_leave: {ex}")
         pass
     # Log the updated Users list
     user_list = ", ".join([Users[u] for u in Users])
