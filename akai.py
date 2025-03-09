@@ -35,7 +35,7 @@ seen = {}
 # Log
 filename = input("Enter the name for the log file (default: log.txt): ").strip()
 if not filename:
-    filename = "log"    
+    filename = "log"
 log_file_path = os.path.expanduser(f"~/{filename}.txt")
 log_file = open(log_file_path, "a")
 print(f"Log file: {log_file_path}")
@@ -99,8 +99,15 @@ def main():
             log_to_file(f"{tstamp} < {get_username(my_id)} > {val}")
             
             # get user
-            if val == ",get":  
+            if val == ",users":  
                 get_user_ids()
+
+            # get world
+            if val == ",world":
+                get_world(session, server, area, pid)
+
+            if val == ",worldf":
+                get_world(session, server, area, pid, is_worldf=True)
             
             # movement
             if val[0] == ",":
@@ -113,7 +120,6 @@ def main():
 
     return
     
-
 def logon(server, area, room, character, name, password):
     global my_id
     global pid
@@ -233,10 +239,12 @@ def user_join(data):
         if len(user[1].strip()):
             upd_seen(user[1])
     except Exception as ex:
-        print(ex)
-        log_to_file(f"[!] Error in user_join: {ex}")
+        error_message = f"{tstamp} * Error in user_join: {ex} [{Users[data]}]"
+        print(error_message)
+        log_to_file(error_message)
+        #print(ex)
+        #log_to_file(f"[!] Error in user_join: {ex}")
         pass
-    # Log the updated Users list
     user_list = ", ".join([Users[u] for u in Users])
     print("[+] " + str([Users[u] for u in Users]))
     log_to_file("[+] " + "[" + user_list + "]")
@@ -254,8 +262,11 @@ def user_leave(data):
             upd_seen(Users[data])        
         del Users[data]
     except Exception as ex:
-        print(ex)
-        log_to_file(f"[!] Error in user_leave: {ex}")
+        error_message = f"{tstamp} * Error in user_leave: {ex} [{Users[data]}]"
+        print(error_message)
+        log_to_file(error_message)
+        # print(ex)
+        # log_to_file(f"[!] Error in user_leave: {ex}")
         pass
     # Log the updated Users list
     user_list = ", ".join([Users[u] for u in Users])
@@ -300,15 +311,49 @@ def server_msg(event, namespace):
 def get_user_ids():
     global Users
     print("[*] Get user/ID initialized")
-    log_to_file("[*] Get user/ID initialized")
 
     if not Users:
         print("[*] No users found in the Users dictionary.")
         return
 
     for user_id, username in Users.items():
-        print(f"[*] {username} ({user_id})")
-        log_to_file(f"[*] {username} ({user_id})")
+        print(f"- {username} ({user_id})")
+
+def get_world(s: requests.Session, server, area, pid, is_worldf=False):
+    print("[*] Fetching world users...")
+
+    if not server.startswith("http"):
+        server = f"https://{server}"
+
+    with open('./roomid.txt', 'r') as file:
+        room_names = [line.strip() for line in file.readlines()]
+
+    for room_name in room_names:
+        url = f'{server}{api}/areas/{area}/rooms/{room_name}'
+
+        response = s.get(url, headers={"Authentication": f"Bearer {pid}"})
+
+        if response.status_code == 200:
+            room_data = response.json()
+            users = room_data.get('connectedUsers', [])
+            user_list = ", ".join([f"'{user['name']}'" for user in users if user['name'].strip()])
+
+            if users:
+                print(f"[*] Found {len(users)} users in {room_name}.")
+
+                if is_worldf:
+                    print(f"[*] Users in {room_name}:")
+                    for user in users:
+                        if user['name'].strip():
+                            print(f"- {user['name']} ({user['id']})")
+                else:
+                    print(f"- Users in {room_name}: [{user_list}]")
+                
+        else:
+            print(f"[!] Error: Could not fetch data for room {room_name}." 
+                  f"Status Code: {response.status_code}")
+
+    print(f"[*] WORLD USERS GATHER COMPLETE.")
 
 def get_irc_msgs():
     while True:

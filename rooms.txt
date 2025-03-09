@@ -1,6 +1,3 @@
-room_id: "Room name"
----
-
 grave: "Graveyard",
 long_st: "Eel Track", // Eel road/way/alley
 jinja: "Shrine",
