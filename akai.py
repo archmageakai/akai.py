@@ -160,30 +160,90 @@ def logon(server, area, room, character, name, password):
     print(f"id: {user_id}")
     log_to_file(f"id: {user_id}")
     sio.connect(wss, headers={"private-user-id": pid})
+    print("[*] Get Rooms Users")
+    log_to_file("[*] Fetching room users")
     get_users(session, url, area, room)
     return
 
-def get_users(s: requests.Session, server, area, room):
-    
-    # check if spy is printed on initial user printout
+def set_user_status(user):
+    is_afk = user.get("isInactive", False)
+    status_circle = "🟠" if is_afk else "🟢"
+    user_name = user.get('name', anon_name).strip()
 
-    print("[*] Get Rooms Users")
-    log_to_file("[*] Fetching room users")
-    val = s.get(f'{server}{api}/areas/{area}/rooms/{room}',
-                headers={"Authentication": f"Bearer {pid}"})
+    if not user_name:
+        user_name = anon_name
+
+    user['name'] = f"{status_circle} {user_name}"
+
+def get_users(s: requests.Session, server, area, room):
+    val = s.get(f'{server}{api}/areas/{area}/rooms/{room}', headers={"Authentication": f"Bearer {pid}"})
+    
     if val.status_code == 200:
-        users = val.json()['connectedUsers']
-        print("[*] found {}".format(str(len(users))))
-        log_to_file("[*] Found {} users".format(str(len(users))))
+        users = val.json().get('connectedUsers', [])
+        print("[*] found {} users".format(len(users)))
+        log_to_file("[*] Found {} users".format(len(users)))
+        
         for user in users:
             global Users
-            Users[user['id']] = user['name']
-            if len(user['name']) == 0:
-                Users[user['id']] = anon_name
-            if len(Users[user['id']].strip()):
-                upd_seen(Users[user['id']])  # Update seen dictionary
-        # Log the list of users
-        log_to_file("[" + ", ".join([Users[u] for u in Users]) + "]")
+            user_id = user['id']
+            
+            set_user_status(user)
+
+            Users[user_id] = user['name']
+            upd_seen(user['name'])
+
+        user_list = ", ".join([Users[u] for u in Users])
+        log_to_file("[+] " + "[" + user_list + "]")
+
+def get_user_ids():
+    global Users
+    print("[*] Get user/ID initialized")
+
+    if not Users:
+        print("[*] No users found in the Users dictionary.")
+        return
+
+    for user_id, username in Users.items():
+        print(f"- {username} ({user_id})")
+
+def get_world(s: requests.Session, server, area, pid, is_worldf=False):
+    print("[*] Fetching world users...")
+
+    if not server.startswith("http"):
+        server = f"https://{server}"
+
+    with open('./roomid.txt', 'r') as file:
+        room_names = [line.strip() for line in file.readlines()]
+
+    for room_name in room_names:
+        url = f'{server}{api}/areas/{area}/rooms/{room_name}'
+
+        response = s.get(url, headers={"Authentication": f"Bearer {pid}"})
+
+        if response.status_code == 200:
+            room_data = response.json()
+            users = room_data.get('connectedUsers', [])
+
+            for user in users:
+                if not user['name'].strip():
+                    user['name'] = anon_name
+
+                set_user_status(user)
+
+            if users:
+                print(f"[*] Found {len(users)} users in {room_name}.")
+                if is_worldf:
+                    print(f"[*] Users in {room_name}:")
+                    for user_id, username in [(user['id'], user['name']) for user in users]:
+                        print(f"- {username} ({user_id})")
+                else:
+                    user_list = ", ".join([f"'{user['name']}'" for user in users])
+                    print(f"- Users in {room_name}: [{user_list}]")
+                
+        else:
+            print(f"[!] Error: Could not fetch data for room {room_name}. Status Code: {response.status_code}")
+
+    print(f"[*] WORLD USERS GATHER COMPLETE.")
 
 def get_username(userid):
     try:
@@ -310,57 +370,6 @@ def server_msg(event, namespace):
 
     if (author == anon_name) and anti_spy:
         return
-
-def get_user_ids():
-    global Users
-    print("[*] Get user/ID initialized")
-
-    if not Users:
-        print("[*] No users found in the Users dictionary.")
-        return
-
-    for user_id, username in Users.items():
-        print(f"- {username} ({user_id})")
-
-def get_world(s: requests.Session, server, area, pid, is_worldf=False):
-    print("[*] Fetching world users...")
-
-    if not server.startswith("http"):
-        server = f"https://{server}"
-
-    with open('./roomid.txt', 'r') as file:
-        room_names = [line.strip() for line in file.readlines()]
-
-    for room_name in room_names:
-        url = f'{server}{api}/areas/{area}/rooms/{room_name}'
-
-        response = s.get(url, headers={"Authentication": f"Bearer {pid}"})
-
-        if response.status_code == 200:
-            room_data = response.json()
-            users = room_data.get('connectedUsers', [])
-
-            for user in users:
-                if not user['name'].strip():
-                    user['name'] = anon_name
-
-            user_list = ", ".join([f"'{user['name']}'" for user in users])
-
-            if users:
-                print(f"[*] Found {len(users)} users in {room_name}.")
-
-                if is_worldf:
-                    print(f"[*] Users in {room_name}:")
-                    for user in users:
-                        print(f"- {user['name']} ({user['id']})")
-                else:
-                    print(f"- Users in {room_name}: [{user_list}]")
-                
-        else:
-            print(f"[!] Error: Could not fetch data for room {room_name}." 
-                  f" Status Code: {response.status_code}")
-
-    print(f"[*] WORLD USERS GATHER COMPLETE.")
 
 def get_irc_msgs():
     while True:

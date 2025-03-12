@@ -4,11 +4,14 @@ import time
 from datetime import datetime, timedelta
 import threading
 
-"""
+logfn = os.path.expanduser('~/reset.txt')
 
-to do : create reset log file
-
-"""
+def log_resets(message):
+    try:
+        with open(logfn, 'a', encoding='utf-8') as log_file:
+            log_file.write(f"{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} - {message}\n")
+    except Exception as e:
+        print(f"Error writing to log file: {e}")
 
 def reset_today_pull():
     users_file = os.path.expanduser("./data/users.json")
@@ -29,34 +32,41 @@ def reset_today_pull():
         with open(users_file, 'w', encoding="utf-8") as file:
             json.dump(data, file, indent=4)
 
+        # Log successful reset
+        log_resets("[*] Gacha pull reset successfully.")
+
     except Exception as e:
         print(f"Error: {e}")
+        log_resets(f"Error: {e}")
 
 def sleep():
-
     now = datetime.utcnow()
     
-    # Set target time to midnight UTC of the next day
     target_time = datetime(now.year, now.month, now.day) + timedelta(days=1)
 
-    # Calculate sleep duration in seconds
     sleep_duration = (target_time - now).total_seconds()
 
-    # Convert sleep duration to hours, minutes, and seconds
     hours = int(sleep_duration // 3600)
     minutes = int((sleep_duration % 3600) // 60)
     seconds = int(sleep_duration % 60)
 
     print(f"[*] Timer sleeping for {hours} hrs, {minutes} min, {seconds} sec until {target_time} UTC.")
+    log_resets(f"[*] Timer sleeping for {hours} hrs, {minutes} min, {seconds} sec until {target_time} UTC.")
 
-    # Sleep until the target time
     time.sleep(sleep_duration)
 
-    # Reset "today" values after waking up
     reset_today_pull()
     print(f"[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
+    log_resets("[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
+
+    # Start the timer again for the next day
+    sleep()
 
 def start():
+    if not os.path.exists(logfn):
+        open(logfn, 'w').close()
 
     reset_thread = threading.Thread(target=sleep, daemon=True)
     reset_thread.start()
+
+    log_resets("[*] Timer started successfully.")

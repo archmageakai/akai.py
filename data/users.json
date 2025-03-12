@@ -115,7 +115,7 @@
                 "gross_yen": 0
             },
             "gacha": {
-                "today": -99999888,
+                "today": 0,
                 "guarantee": 23,
                 "total": 149
             },
@@ -166,7 +166,7 @@
                 "gross_yen": 0
             },
             "gacha": {
-                "today": -999999999996,
+                "today": 0,
                 "guarantee": 9,
                 "total": 9
             },
