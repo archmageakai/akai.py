@@ -22,19 +22,19 @@ def cmd(author, namespace, send_message):
                  "Archduke◆cRwJk8JEBs", 
                  "gyudon_addict◆hawaiiZtQ6"]
     
-    
-    if author in user_list:
-        if msg[0] in commands:
+    if msg[0] in commands:
+        if author in user_list:
             if msg[0] == ".transform":
                 random_binary = randompull(filename)
                 ascii_output = bin_to_ascii(random_binary)
                 send_message(ascii_output)
-            elif msg[0] == ".plan9":
-                send_message("#gnot")
-            elif msg[0] == ".henshin":
-                send_message("#henshin")
-    else:
-        if author not in user_list:
+            elif author in user_list:
+                if msg[0] == ".plan9":
+                    send_message("#gnot")
+            elif author in user_list:
+                if msg[0] == ".henshin":
+                    send_message("#henshin")
+        elif author not in user_list:
             # DISREGARD MSG
             not_authorized = (
     "01010000 01001100 01000101 01000001 01010011 01000101 "
