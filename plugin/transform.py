@@ -28,11 +28,9 @@ def cmd(author, namespace, send_message):
                 random_binary = randompull(filename)
                 ascii_output = bin_to_ascii(random_binary)
                 send_message(ascii_output)
-            elif author in user_list:
-                if msg[0] == ".plan9":
+            elif msg[0] == ".plan9":
                     send_message("#gnot")
-            elif author in user_list:
-                if msg[0] == ".henshin":
+            elif msg[0] == ".henshin":
                     send_message("#henshin")
         elif author not in user_list:
             # DISREGARD MSG
@@ -52,4 +50,4 @@ def cmd(author, namespace, send_message):
             )
 
             ascii_error = bin_to_ascii(not_authorized)
-            send_message(f"#spy {author} shouts to the world, \"{ascii_error}!\"")
+            send_message(f"{author} shouts to the world, \"{ascii_error}!\"")
