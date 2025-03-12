@@ -60,9 +60,9 @@ def main():
     room = "bar"
     character = input("Enter your giko (default: akai): ")
     if not character:
-        character = "akai"
+        character = "glenda"
     name = "akai.py"
-    password = "VIPQUALITY"
+    password = ""
     if tripcode:
         name = name + "#" + trip
 
