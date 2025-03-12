@@ -165,15 +165,20 @@ def logon(server, area, room, character, name, password):
     get_users(session, url, area, room)
     return
 
-def set_user_status(user):
+def set_user_status(user, add_idle=False):
+    """Set the user's status and optionally add a status circle."""
     is_afk = user.get("isInactive", False)
-    status_circle = "🟠" if is_afk else "🟢"
+    idle = "💤" if is_afk else ""
+    
     user_name = user.get('name', anon_name).strip()
-
+    
     if not user_name:
         user_name = anon_name
-
-    user['name'] = f"{status_circle} {user_name}"
+    
+    if add_idle:
+        user['name'] = f"{idle}{user_name}"
+    else:
+        user['name'] = f"{user_name}"
 
 def get_users(s: requests.Session, server, area, room):
     val = s.get(f'{server}{api}/areas/{area}/rooms/{room}', headers={"Authentication": f"Bearer {pid}"})
@@ -187,7 +192,7 @@ def get_users(s: requests.Session, server, area, room):
             global Users
             user_id = user['id']
             
-            set_user_status(user)
+            set_user_status(user, add_idle=True)
 
             Users[user_id] = user['name']
             upd_seen(user['name'])
@@ -228,7 +233,8 @@ def get_world(s: requests.Session, server, area, pid, is_worldf=False):
                 if not user['name'].strip():
                     user['name'] = anon_name
 
-                set_user_status(user)
+                # Pass `add_idle=True` to include the status circle
+                set_user_status(user, add_idle=True)
 
             if users:
                 print(f"[*] Found {len(users)} users in {room_name}.")
