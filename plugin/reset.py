@@ -17,7 +17,7 @@ def log_resets(message):
         print(f"Error writing to log file: {e}")
 
 def reset_today_pull():
-    users_file = os.path.expanduser("{directory}/users.json")
+    users_file = os.path.expanduser(f"{directory}/users.json")
 
     try:
         if not os.path.exists(users_file):
