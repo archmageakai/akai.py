@@ -1,19 +1,19 @@
 def cmd(author, namespace, send_message):
 
     helptable = {
-        "akaiyen": "akaiyen commands: .convert | .balance | .yen_rate | .gross",
-        # "gacha": "gacha commands: .gacha | .gacha_rate",
+        "akaiyen": "https://akai.gikopoi.com/akai.py/akaiyen.html -- or:  akaiyen commands: .convert | .balance | .yen_rate | .gross",
+        "game": "https://akai.gikopoi.com/akai.py/game.html -- or:  game commands: .gacha | .gacha_rate | .guarantee | .bag",
     }
 
     message = namespace.strip()
     msg = message.split()
     output = []
-    topics = list(helptable.keys())
+    command = list(helptable.keys())
 
     if msg[0] == ".help":
         if len(msg) == 1:
-            output.append("List of topics (type .help <topic>): " + " | ".join(topics))
-        elif len(msg) > 1 and msg[1] in topics:
+            output.append("akai.py web guide: https://akai.gikopoi.com/akai.py/ -- or:  Find commands (type .help <commands>): " + " | ".join(command))
+        elif len(msg) > 1 and msg[1] in command:
             output.append(helptable[msg[1]])
 
     for line in output:

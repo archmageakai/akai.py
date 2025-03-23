@@ -117,7 +117,7 @@ def pull(author, send_message, users_data):
     remaining_pulls = MAX_PULLS - gacha_today
 
     if remaining_pulls <= 0:
-        send_message(f"{author}, you've already pulled {MAX_PULLS} times today. Please try again tomorrow.")
+        send_message(f"{author}, you've already pulled {MAX_PULLS} times today. Please try again after midnight UTC.")
         return
     
     items = load_items()
