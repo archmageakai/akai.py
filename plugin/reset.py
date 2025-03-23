@@ -4,6 +4,9 @@ import time
 from datetime import datetime, timedelta
 import threading
 
+directory = open(os.path.expanduser("~/akaipy-data/gacha_dir.txt"), "r")
+directory = directory.read().splitlines()[0].strip()
+
 logfn = os.path.expanduser('~/akaipy-data/reset.txt')
 
 def log_resets(message):
@@ -14,7 +17,7 @@ def log_resets(message):
         print(f"Error writing to log file: {e}")
 
 def reset_today_pull():
-    users_file = os.path.expanduser("./data/users.json")
+    users_file = os.path.expanduser("{directory}/users.json")
 
     try:
         if not os.path.exists(users_file):
