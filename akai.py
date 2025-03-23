@@ -423,19 +423,21 @@ def remote_switch(author, namespace, send_message):
     msg = message.split()
 
     auth = ["Akai◆giko//JRnk", "Archduke◆cRwJk8JEBs"]
-    commands = [".bYEN", ".bGACHA"]
+    commands = [",bYEN", ",bGACHA"]
 
-
+    # Check if the command is valid
     if msg[0] in commands:
+        # If the author is authorized
         if author in auth:
-            if msg[0] == ".bYEN":
+            if msg[0] == ",bYEN":
                 SWITCH_YEN = not SWITCH_YEN
                 print(f"SWITCH_YEN is now {'ON' if SWITCH_YEN else 'OFF'}")
-            elif msg[0] == ".bGACHA":
+            elif msg[0] == ",bGACHA":
                 SWITCH_GACHA = not SWITCH_GACHA
                 print(f"SWITCH_GACHA is now {'ON' if SWITCH_GACHA else 'OFF'}")
-    else:
-        not_authorized = (
+        elif author not in auth:
+            # If the author is not authorized
+            not_authorized = (
     "01010000 01001100 01000101 01000001 01010011 01000101 "
     "00100000 "
     "01000100 01001001 01010011 01010010 01000101 01000111 01000001 01010010 01000100 "
@@ -447,13 +449,13 @@ def remote_switch(author, namespace, send_message):
     "01010011 01010101 01000011 01001011 "
     "00100000 "
     "01000011 01001111 01000011 01001011 01010011"
-        )
-        
-        ascii_error = transform.bin_to_ascii(not_authorized)
-        send_message(f"#spy {author} shouts to the world, \"{ascii_error}!\"")
+            )
+            ascii_error = transform.bin_to_ascii(not_authorized)
+            send_message(f"#spy {author} shouts to the world, \"{ascii_error}!\"")
+    else:
+        # If the command is not in the valid commands list, do nothing
+        return
 
-    # Return the updated switches if needed
-    return SWITCH_YEN, SWITCH_GACHA
 
 
 if __name__ == "__main__":

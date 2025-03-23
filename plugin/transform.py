@@ -50,4 +50,4 @@ def cmd(author, namespace, send_message):
             )
 
             ascii_error = bin_to_ascii(not_authorized)
-            send_message(f"{author} shouts to the world, \"{ascii_error}!\"")
+            send_message(f"#spy {author} shouts to the world, \"{ascii_error}!\"")
