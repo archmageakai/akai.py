@@ -21,11 +21,11 @@ SWITCH_GACHA = True
 sio = socketio.Client()
 session = requests.Session()
 
-anon_name = "Spy"
 Users = {}
 my_id = ""
 pid = ""
 api = ""
+anon_name = "Spy"
 anti_spy = False
 ircmode = False
 ircroom = "null"
@@ -423,34 +423,34 @@ def remote_switch(author, namespace, send_message):
     msg = message.split()
 
     auth = ["Akai◆giko//JRnk", "Archduke◆cRwJk8JEBs"]
-    commands = [",YEN", ",GACHA"]
+    commands = [".bYEN", ".bGACHA"]
 
-    if author in auth:
-        # Handle authorized users
-        if msg[0] == ",YEN":  # Check for ",YEN"
-            SWITCH_YEN = not SWITCH_YEN
-            print(f"SWITCH_YEN is now {'ON' if SWITCH_YEN else 'OFF'}")
-        elif msg[0] == ",GACHA":  # Check for ",GACHA"
-            SWITCH_GACHA = not SWITCH_GACHA
-            print(f"SWITCH_GACHA is now {'ON' if SWITCH_GACHA else 'OFF'}")
+
+    if msg[0] in commands:
+        if author in auth:
+            if msg[0] == ".bYEN":
+                SWITCH_YEN = not SWITCH_YEN
+                print(f"SWITCH_YEN is now {'ON' if SWITCH_YEN else 'OFF'}")
+            elif msg[0] == ".bGACHA":
+                SWITCH_GACHA = not SWITCH_GACHA
+                print(f"SWITCH_GACHA is now {'ON' if SWITCH_GACHA else 'OFF'}")
     else:
-        # Handle unauthorized users
         not_authorized = (
-            "01010000 01001100 01000101 01000001 01010011 01000101 "
-            "00100000 "
-            "01000100 01001001 01010011 01010011 01000101 01000111 01000001 01010010 01000100 "
-            "00100000 "
-            "01010100 01001000 01000001 01010100 "
-            "00100000 "
-            "01001001 "
-            "00100000 "
-            "01010011 01010101 01000011 01001011 "
-            "00100000 "
-            "01000011 01001111 01000011 01001011 01010011"
+    "01010000 01001100 01000101 01000001 01010011 01000101 "
+    "00100000 "
+    "01000100 01001001 01010011 01010010 01000101 01000111 01000001 01010010 01000100 "
+    "00100000 "
+    "01010100 01001000 01000001 01010100 "
+    "00100000 "
+    "01001001 "
+    "00100000 "
+    "01010011 01010101 01000011 01001011 "
+    "00100000 "
+    "01000011 01001111 01000011 01001011 01010011"
         )
         
         ascii_error = transform.bin_to_ascii(not_authorized)
-        send_message(f"{author} shouts to the world, \"{ascii_error}!\"")
+        send_message(f"#spy {author} shouts to the world, \"{ascii_error}!\"")
 
     # Return the updated switches if needed
     return SWITCH_YEN, SWITCH_GACHA
