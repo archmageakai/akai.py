@@ -21,11 +21,11 @@ SWITCH_GACHA = True
 sio = socketio.Client()
 session = requests.Session()
 
+anon_name = "Spy"
 Users = {}
 my_id = ""
 pid = ""
 api = ""
-anon_name = "Spy"
 anti_spy = False
 ircmode = False
 ircroom = "null"
