@@ -81,7 +81,12 @@ def get_user(author, users_data):
                 }
             }
         }
+        
         users_data.append(user_data)  # Add new player to users data
+        
+        # Sort the users alphabetically and by symbols, numbers, and characters
+        users_data.sort(key=lambda user: (user["player_name"].strip().lower(), user["player_name"]))
+
         save_users(users_data)  # Save updated users data
         print(f"Created new account for {author}")
 
