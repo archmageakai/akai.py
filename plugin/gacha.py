@@ -342,4 +342,6 @@ def cmd(author, namespace, send_message):
         send_message(f"{author}, if you don't get a 5-star in {guarantee_output} pulls, you will have a guaranteed 5-star pull!")
 
     if message == ".bag":
-        send_message(f"{author}, you can access your inventory here: https://akai.gikopoi.com/akai.py/users.html#{author}")
+        # Manually replace spaces with '%20'
+        encoded_author = author.replace(" ", "%20")
+        send_message(f"{author}, you can access your inventory here: https://akai.gikopoi.com/akai.py/users.html#{encoded_author}")
