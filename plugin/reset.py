@@ -4,7 +4,7 @@ import time
 from datetime import datetime, timedelta
 import threading
 
-logfn = os.path.expanduser('~/reset.txt')
+logfn = os.path.expanduser('~/akaipy-data/reset.txt')
 
 def log_resets(message):
     try:

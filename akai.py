@@ -10,7 +10,13 @@ from plugin import quotes
 from plugin import transform
 from plugin import reset
 from plugin import akaiyen
-# from plugin import gacha
+from plugin import gacha
+
+# BOOLEAN
+SWITCH_QUOTES = True
+SWITCH_TRANSFORM = False
+SWITCH_YEN = True
+SWITCH_GACHA = True
 
 sio = socketio.Client()
 session = requests.Session()
@@ -60,9 +66,9 @@ def main():
     room = "bar"
     character = input("Enter your giko (default: akai): ")
     if not character:
-        character = "glenda"
+        character = "gacha"
     name = "akai.py"
-    password = ""
+    password = "GACHAPON"
     if tripcode:
         name = name + "#" + trip
 
@@ -97,7 +103,24 @@ def main():
         if len(val):
             tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             log_to_file(f"{tstamp} < {get_username(my_id)} > {val}")
+
+            switches = {
+                ",QUOTES": "SWITCH_QUOTES",
+                ",TRANSFORM": "SWITCH_TRANSFORM",
+                ",YEN": "SWITCH_YEN",
+                ",GACHA": "SWITCH_GACHA"
+                        }
             
+            if val == ",SWITCH":  
+                print(', '.join(f"{key}: {globals()[var_name]}" for key, var_name in switches.items()))
+
+            if val in switches:
+                switch_name = switches[val]
+
+                globals()[switches[val]] = not globals()[switches[val]]
+
+                print(f"Flipped {switch_name} to {globals()[switch_name]}")
+
             # get user
             if val == ",USERS":  
                 get_user_ids()
@@ -358,21 +381,28 @@ def server_msg(event, namespace):
     msg = '{} < {} > {}'.format(tstamp, author, namespace)
     print(msg)
     log_to_file(msg)
-    
+
+    # remotely turn off plugins
+    remote_switch(author, namespace, send_message)
+
     # help.py
     help.cmd(author, namespace, send_message)
 
     # quotes
-    quotes.cmd(author, namespace, send_message)
+    if SWITCH_QUOTES == True:
+        quotes.cmd(author, namespace, send_message)
 
     # transform
-    transform.cmd(author, namespace, send_message)
+    if SWITCH_TRANSFORM == True:
+        transform.cmd(author, namespace, send_message)
     
     # akaiyen.py
-    akaiyen.cmd(author, namespace, send_message)
+    if SWITCH_YEN == True:
+        akaiyen.cmd(author, namespace, send_message)
 
     # gacha.py
-    # gacha.cmd(author, namespace, send_message) # call gacha
+    if SWITCH_GACHA == True:
+        gacha.cmd(author, namespace, send_message) # call gacha
 
     if (author == anon_name) and anti_spy:
         return
@@ -385,6 +415,46 @@ def get_irc_msgs():
                 send_message(m)
                 log_to_file(m)
                 time.sleep(1)
+
+def remote_switch(author, namespace, send_message):
+    global SWITCH_YEN
+    global SWITCH_GACHA
+    message = namespace.strip()
+    msg = message.split()
+
+    auth = ["Akai◆giko//JRnk", "Archduke◆cRwJk8JEBs"]
+    commands = [",YEN", ",GACHA"]
+
+    if author in auth:
+        # Handle authorized users
+        if msg[0] == ",YEN":  # Check for ",YEN"
+            SWITCH_YEN = not SWITCH_YEN
+            print(f"SWITCH_YEN is now {'ON' if SWITCH_YEN else 'OFF'}")
+        elif msg[0] == ",GACHA":  # Check for ",GACHA"
+            SWITCH_GACHA = not SWITCH_GACHA
+            print(f"SWITCH_GACHA is now {'ON' if SWITCH_GACHA else 'OFF'}")
+    else:
+        # Handle unauthorized users
+        not_authorized = (
+            "01010000 01001100 01000101 01000001 01010011 01000101 "
+            "00100000 "
+            "01000100 01001001 01010011 01010011 01000101 01000111 01000001 01010010 01000100 "
+            "00100000 "
+            "01010100 01001000 01000001 01010100 "
+            "00100000 "
+            "01001001 "
+            "00100000 "
+            "01010011 01010101 01000011 01001011 "
+            "00100000 "
+            "01000011 01001111 01000011 01001011 01010011"
+        )
+        
+        ascii_error = transform.bin_to_ascii(not_authorized)
+        send_message(f"{author} shouts to the world, \"{ascii_error}!\"")
+
+    # Return the updated switches if needed
+    return SWITCH_YEN, SWITCH_GACHA
+
 
 if __name__ == "__main__":
     try:

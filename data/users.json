@@ -1,199 +1,7 @@
 {
     "users": [
         {
-            "player_name": "Akai",
-            "currencies": {
-                "yen": 1,
-                "gross_yen": 1
-            },
-            "gacha": {
-                "today": 0,
-                "guarantee": 13,
-                "total": 38
-            },
-            "items": {
-                "1": 5,
-                "2": 1,
-                "3": 2
-            },
-            "blades": {
-                "1": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                },
-                "2": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                },
-                "3": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                },
-                "4": {
-                    "core_slots": {
-                        "available": 1,
-                        "used": 0,
-                        "broken": 6
-                    }
-                },
-                "5": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                }
-            }
-        },
-        {
-            "player_name": "Bob",
-            "currencies": {
-                "yen": 5,
-                "gross_yen": 10
-            },
-            "gacha": {
-                "today": 0,
-                "guarantee": 11,
-                "total": 51
-            },
-            "items": {
-                "1": 2,
-                "2": 3,
-                "3": 4
-            },
-            "blades": {
-                "1": {
-                    "core_slots": {
-                        "available": 6,
-                        "used": 1,
-                        "broken": 0
-                    }
-                },
-                "2": {
-                    "core_slots": {
-                        "available": 5,
-                        "used": 0,
-                        "broken": 1
-                    }
-                },
-                "3": {
-                    "core_slots": {
-                        "available": 8,
-                        "used": 2,
-                        "broken": 0
-                    }
-                },
-                "4": {
-                    "core_slots": {
-                        "available": 4,
-                        "used": 0,
-                        "broken": 2
-                    }
-                },
-                "5": {
-                    "core_slots": {
-                        "available": 6,
-                        "used": 1,
-                        "broken": 0
-                    }
-                }
-            }
-        },
-        {
-            "player_name": "Akai-mane",
-            "currencies": {
-                "yen": 0,
-                "gross_yen": 0
-            },
-            "gacha": {
-                "today": 0,
-                "guarantee": 23,
-                "total": 149
-            },
-            "items": {
-                "1": 155,
-                "2": 72,
-                "3": 3,
-                "4": 2,
-                "5": 4,
-                "6": 2,
-                "7": 1
-            },
-            "blades": {
-                "2": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                },
-                "3": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                },
-                "4": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                },
-                "5": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                }
-            }
-        },
-        {
-            "player_name": "meow\u25c6meow/DrxXk",
-            "currencies": {
-                "yen": 0,
-                "gross_yen": 0
-            },
-            "gacha": {
-                "today": 0,
-                "guarantee": 9,
-                "total": 9
-            },
-            "items": {
-                "1": 3,
-                "2": 2,
-                "4": 2
-            },
-            "blades": {
-                "2": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                },
-                "3": {
-                    "core_slots": {
-                        "available": 7,
-                        "used": 0,
-                        "broken": 0
-                    }
-                }
-            }
-        },
-        {
-            "player_name": "Spy",
+            "player_name": "Akai\u25c6giko//JRnk",
             "currencies": {
                 "yen": 0,
                 "gross_yen": 0
@@ -204,7 +12,15 @@
                 "total": 0
             },
             "items": {},
-            "blades": {}
+            "blades": {
+                "5.0": {
+                    "core_slots": {
+                        "available": 7,
+                        "used": 0,
+                        "broken": 0
+                    }
+                }
+            }
         }
     ]
 }
