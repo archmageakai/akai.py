@@ -432,9 +432,11 @@ def remote_switch(author, namespace, send_message):
             if msg[0] == ",bYEN":
                 SWITCH_YEN = not SWITCH_YEN
                 print(f"SWITCH_YEN is now {'ON' if SWITCH_YEN else 'OFF'}")
+                send_message(f"{author}: yen is {SWITCH_YEN}")
             elif msg[0] == ",bGACHA":
                 SWITCH_GACHA = not SWITCH_GACHA
                 print(f"SWITCH_GACHA is now {'ON' if SWITCH_GACHA else 'OFF'}")
+                send_message(f"{author}: SWITCH_GACHA is now {SWITCH_GACHA}")
         elif author not in auth:
             # If the author is not authorized
             not_authorized = (
