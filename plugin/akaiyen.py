@@ -2,6 +2,7 @@ import os
 import re
 import time
 import math
+#import akailogger
 
 bankfn = os.path.expanduser("~/akaipy-data/akaiyen.txt")
 mula = os.path.expanduser("~/akaipy-data/totalyen.txt")
@@ -28,6 +29,10 @@ def send(author, message, send_message):
                     f"Here is a refund, {author}! We only accept a maximum transfer of 10000 gikocoins at this time."
                 )
                 print(f"[AKAIYEN] for {author}, refund {coins} gikocoins due to over max transfers")
+                
+                #akailogger.log_to_file(f"!send {coins} {author}")
+                #akailogger.log_to_file(
+                #    f"Here is a refund, {author}! We only accept a maximum transfer of 10000 gikocoins at this time.")
             else:               
                 # Process each gikocoin individually      
                 print(f"[AKAIYEN] start loop - reading coins/rates, writing to bank/records")
@@ -50,17 +55,25 @@ def send(author, message, send_message):
                     f"Here is a refund, {author}! Please send enough gikocoins to convert to at least 0.01 akaiyen."
                     )
                     print(f"[AKAIYEN] for {author}, refund {coins} gikocoins, not enough gikocoins to make at least 0.01 akaiyen.")
+
+                    #akailogger.log_to_file(
+                    #f"Here is a refund, {author}! Please send enough gikocoins to convert to at least 0.01 akaiyen."
+                    #)
                 else:
                     # Send a message to the user with the total converted amount
                     send_message(f"Thank you for your purchase, {author}! You received {akaiyen_total_transfer:.2f} akaiyen.")
                     print(f"[AKAIYEN] {author} received {akaiyen_total_transfer:.2f} akaiyen.")
 
+                    #akailogger.log_to_file(f"Thank you for your purchase, {author}! You received {akaiyen_total_transfer:.2f} akaiyen.")
+
                     # Get the balance after the purchase
                     balance = check_balance(author)
                     if balance is not None:
                         send_message(f"{author} has a total balance of {balance:.2f} akaiyen.")
+                        #akailogger.log_to_file(f"{author} has a total balance of {balance:.2f} akaiyen.")
                     else:
                         send_message(f"An error occurred while checking {author}'s balance.")
+                        #akailogger.log_to_file(f"An error occurred while checking {author}'s balance.")
 
             return {"author": author, "akaiyen": akaiyen_total_transfer}
 
@@ -268,24 +281,31 @@ def cmd(author, namespace, send_message):
     if message == ".convert":
         send_message("Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen. "
                      "(max transfer: 10000 gikocoins, and you will be refunded upon transactions beyond maximum)")
+        #akailogger.log_to_file("Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen. "
+        #             "(max transfer: 10000 gikocoins, and you will be refunded upon transactions beyond maximum)")
 
     # CHECK BALANCE
     if message == ".balance":
         balance = check_balance(author)
         if balance is not None:
             send_message(f"{author} has a balance of {balance:.2f} akaiyen.")
+            #akailogger.log_to_file(f"{author} has a balance of {balance:.2f} akaiyen.")
         else:
             send_message(f"{author} does not have any akaiyen!")
+            #akailogger.log_to_file(f"{author} does not have any akaiyen!")
 
     # CHECK RATE
     if message == ".yen_rate":
         rate = akaiyen_rate(author)
         send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins [ see more info: https://akai.gikopoi.com/akai.py/rate.html ]")
+        #akailogger.log_to_file(f"{author}: your rate is 1 akaiyen = {rate} gikocoins [ see more info: https://akai.gikopoi.com/akai.py/rate.html ]")
     
     # CHECK GROSS
     if message == ".gross":
         earnings = check_gross(author)
         if earnings is not None:
             send_message(f"{author} has a gross earnings of {earnings:.2f} akaiyen.")
+            #akailogger.log_to_file(f"{author} has a gross earnings of {earnings:.2f} akaiyen.")
         else:
             send_message(f"{author} has no gross earnings.")
+            #akailogger.log_to_file(f"{author} has no gross earnings.")

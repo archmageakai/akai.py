@@ -36,7 +36,8 @@ def reset_today_pull():
             json.dump(data, file, indent=4)
 
         # Log successful reset
-        log_resets("[*] Gacha pull reset successfully.")
+        print(f"[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
+        log_resets("[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
 
     except Exception as e:
         print(f"Error: {e}")
@@ -59,8 +60,9 @@ def sleep():
     time.sleep(sleep_duration)
 
     reset_today_pull()
-    print(f"[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
-    log_resets("[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
+
+    print("[*] END RESET")
+    log_resets("[*] END RESET")
 
     # Start the timer again for the next day
     sleep()

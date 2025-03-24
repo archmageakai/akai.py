@@ -2,6 +2,7 @@ import random
 import time
 import json
 import os
+#import akailogger
 from plugin.akaiyen import check_balance, write_to_file, lottery
 
 """
@@ -118,6 +119,7 @@ def pull(author, send_message, users_data):
 
     if remaining_pulls <= 0:
         send_message(f"{author}, you've already pulled {MAX_PULLS} times today. Please try again after midnight UTC.")
+        #akailogger.log_to_file(f"{author}, you've already pulled {MAX_PULLS} times today. Please try again after midnight UTC.")
         return
     
     items = load_items()
@@ -128,11 +130,17 @@ def pull(author, send_message, users_data):
 
     user_balance = check_balance(author)
     if user_balance is None:
-        send_message(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull.")
+        send_message(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
+                     f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
+        #akailogger.log_to_file(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
+        #             f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
         return
 
     if user_balance < GACHA_PULL_PRICE:
-        send_message(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull.")
+        send_message(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
+                     f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
+        #akailogger.log_to_file(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
+        #             f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
         return
 
     # charge user
@@ -249,8 +257,11 @@ def pull(author, send_message, users_data):
     if is_blade == True:
         url = f"https://akai.gikopoi.com/akai.py/blade.html#{pulled.get('blade_ID')}"
 
-    send_message(f"[GACHAPON!] {author}, you pull: {name} ({rarity}) [ More details: {url} ] "
-             f"// [{remaining_pulls - 1} / {MAX_PULLS} pull(s) remaining for today] [you spent {GACHA_PULL_PRICE} akaiyen]")
+    pull_message = (f"[GACHAPON!] {author}, you pull: {name} ({rarity}) [ More details: {url} ] "
+                   f"// [{remaining_pulls - 1} / {MAX_PULLS} pull(s) remaining for today] [you spent {GACHA_PULL_PRICE} akaiyen]")
+
+    send_message(pull_message)
+    #akailogger.log_to_file(pull_message)
 
 def add_to_inventory(author, pulled, users_data):
     # find user
@@ -340,13 +351,16 @@ def cmd(author, namespace, send_message):
 
     if message == ".gacha_rate":
         send_message(f"1 pull from Gachapon = {GACHA_PULL_PRICE} akaiyen // {MAX_PULLS} pulls per day")
+        #akailogger.log_to_file(f"1 pull from Gachapon = {GACHA_PULL_PRICE} akaiyen // {MAX_PULLS} pulls per day")
 
     if message == ".guarantee":
         guarantee_count = get_guarantee(author, users_data)
         guarantee_output = GUARANTEE_AT - guarantee_count 
         send_message(f"{author}, if you don't get a 5-star in {guarantee_output} pulls, you will have a guaranteed 5-star pull!")
+        #akailogger.log_to_file(f"{author}, if you don't get a 5-star in {guarantee_output} pulls, you will have a guaranteed 5-star pull!")
 
     if message == ".bag":
         # Manually replace spaces with '%20'
         encoded_author = author.replace(" ", "%20")
         send_message(f"{author}, you can access your inventory here: https://akai.gikopoi.com/akai.py/users.html#{encoded_author}")
+        #akailogger.log_to_file(f"{author}, you can access your inventory here: https://akai.gikopoi.com/akai.py/users.html#{encoded_author}")

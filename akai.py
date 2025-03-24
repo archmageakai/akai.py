@@ -5,6 +5,7 @@ import requests
 import sys
 import os
 
+#from plugin import akailogger
 from plugin import help
 from plugin import quotes
 from plugin import transform
@@ -37,6 +38,8 @@ if tripcode is True:
 
 # Initialize seen as a dictionary
 seen = {}
+
+import os
 
 # Log
 filename = input("Enter the name for the log file (default: log.txt): ").strip()
@@ -338,7 +341,7 @@ def user_join(data):
     except Exception as ex:
         #error_message = f"{tstamp} * Error in user_join: {ex} [{Users[data]}]"
         #print(error_message)
-        #log_to_file(error_message)
+        #akai_logger.log_to_file(error_message)
         print(ex)
         log_to_file(f"[!] Error in user_join: {ex}")
         pass
@@ -361,7 +364,7 @@ def user_leave(data):
     except Exception as ex:
         #error_message = f"{tstamp} * Error in user_leave: {ex} [{Users[data]}]"
         #print(error_message)
-        #log_to_file(error_message)
+        #akai_logger.log_to_file(error_message)
         print(ex)
         log_to_file(f"[!] Error in user_leave: {ex}")
         pass
