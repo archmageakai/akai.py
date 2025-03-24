@@ -56,9 +56,14 @@ def upd_seen(username):
     seen[username] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 def main():
-    print("[*] Starting reset thread...")
-    reset.start()
-    print("[*] Reset thread started!")
+    response = input("Do you want to start the reset thread? [y] or [enter] for yes / else no: ").strip().lower()
+
+    if response in ("", "y"):
+        print("[*] Starting reset thread...")
+        reset.start()
+        print("[*] Reset thread started!")
+    else:
+        print("[*] Reset thread not started.")
 
     global api
     server = "play.gikopoi.com"

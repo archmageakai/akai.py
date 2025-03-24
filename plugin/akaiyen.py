@@ -266,7 +266,7 @@ def cmd(author, namespace, send_message):
 
     # HOW TO CONVERT GIKOCOINS TO AKAIYEN
     if message == ".convert":
-        send_message("Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen."
+        send_message("Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen. "
                      "(max transfer: 10000 gikocoins, and you will be refunded upon transactions beyond maximum)")
 
     # CHECK BALANCE
