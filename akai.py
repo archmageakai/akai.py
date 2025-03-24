@@ -341,7 +341,7 @@ def user_join(data):
     except Exception as ex:
         #error_message = f"{tstamp} * Error in user_join: {ex} [{Users[data]}]"
         #print(error_message)
-        #akai_logger.log_to_file(error_message)
+        #log_to_file(error_message)
         print(ex)
         log_to_file(f"[!] Error in user_join: {ex}")
         pass
@@ -364,7 +364,7 @@ def user_leave(data):
     except Exception as ex:
         #error_message = f"{tstamp} * Error in user_leave: {ex} [{Users[data]}]"
         #print(error_message)
-        #akai_logger.log_to_file(error_message)
+        #log_to_file(error_message)
         print(ex)
         log_to_file(f"[!] Error in user_leave: {ex}")
         pass
@@ -407,10 +407,16 @@ def server_msg(event, namespace):
     # akaiyen.py
     if SWITCH_YEN == True:
         akaiyen.cmd(author, namespace, send_message)
+    else:
+        if namespace in akaiyen.command:
+            send_message(f"Hey {author}, akaiyen system not available at the moment. Sorry!")
 
     # gacha.py
     if SWITCH_GACHA == True:
         gacha.cmd(author, namespace, send_message) # call gacha
+    else:
+        if namespace in gacha.command:
+            send_message(f"Hey {author}, gacha-game is turned off here, if you want to play: go to Bar Street aka bar_st map!")
 
     if (author == anon_name) and anti_spy:
         return

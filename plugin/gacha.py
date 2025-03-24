@@ -1,14 +1,26 @@
 import random
+import datetime
 import time
 import json
 import os
 #import akailogger
 from plugin.akaiyen import check_balance, write_to_file, lottery
 
+def log_to_file(message):
+    """ edit each log_to_file to contain [COMMAND]"""
+
+    """Log messages to the log file."""
+    tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    format = f"[{tstamp}] {message} \n"
+
+    log_file_path = os.path.expanduser(f"~/akaipy-data/log_gacha.txt")
+    
+    with open(log_file_path, "a") as log_file:
+        log_file.write(format)
+
 """
 
-** change/style output (debug/terminal as well as gikopoi sendmsg) messages
-** incl. [BLADE] or [ITEM] at beginning of pulled_item as well as [*-STAR] at end
+
 
 """
 
@@ -119,7 +131,7 @@ def pull(author, send_message, users_data):
 
     if remaining_pulls <= 0:
         send_message(f"{author}, you've already pulled {MAX_PULLS} times today. Please try again after midnight UTC.")
-        #akailogger.log_to_file(f"{author}, you've already pulled {MAX_PULLS} times today. Please try again after midnight UTC.")
+        log_to_file(f"{author}, you've already pulled {MAX_PULLS} times today. Please try again after midnight UTC.")
         return
     
     items = load_items()
@@ -132,15 +144,15 @@ def pull(author, send_message, users_data):
     if user_balance is None:
         send_message(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
                      f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
-        #akailogger.log_to_file(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
-        #             f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
+        log_to_file(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
+                    f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
         return
 
     if user_balance < GACHA_PULL_PRICE:
         send_message(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
                      f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
-        #akailogger.log_to_file(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
-        #             f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
+        log_to_file(f"{author}, you don't have enough Akaiyen for a Gacha pull. You need {GACHA_PULL_PRICE} akaiyen for one pull. "
+                    f"More info: https://akai.gikopoi.com/akai.py/akaiyen.html")
         return
 
     # charge user
@@ -261,7 +273,7 @@ def pull(author, send_message, users_data):
                    f"// [{remaining_pulls - 1} / {MAX_PULLS} pull(s) remaining for today] [you spent {GACHA_PULL_PRICE} akaiyen]")
 
     send_message(pull_message)
-    #akailogger.log_to_file(pull_message)
+    log_to_file(pull_message)
 
 def add_to_inventory(author, pulled, users_data):
     # find user
@@ -341,8 +353,17 @@ def get_guarantee(author, users_data):
     user_data = get_user(author, users_data)
     return user_data["gacha"].get("guarantee")
 
-def cmd(author, namespace, send_message):
+""" COMMANDS """
 
+command = {
+                ".gacha",
+                ".gacha_rate",
+                ".guarantee",
+                ".bag"
+                        }
+
+def cmd(author, namespace, send_message):
+    
     message = namespace.strip()
     users_data = load_users()
 
@@ -351,16 +372,16 @@ def cmd(author, namespace, send_message):
 
     if message == ".gacha_rate":
         send_message(f"1 pull from Gachapon = {GACHA_PULL_PRICE} akaiyen // {MAX_PULLS} pulls per day")
-        #akailogger.log_to_file(f"1 pull from Gachapon = {GACHA_PULL_PRICE} akaiyen // {MAX_PULLS} pulls per day")
+        log_to_file(f"1 pull from Gachapon = {GACHA_PULL_PRICE} akaiyen // {MAX_PULLS} pulls per day")
 
     if message == ".guarantee":
         guarantee_count = get_guarantee(author, users_data)
         guarantee_output = GUARANTEE_AT - guarantee_count 
         send_message(f"{author}, if you don't get a 5-star in {guarantee_output} pulls, you will have a guaranteed 5-star pull!")
-        #akailogger.log_to_file(f"{author}, if you don't get a 5-star in {guarantee_output} pulls, you will have a guaranteed 5-star pull!")
+        log_to_file(f"{author}, if you don't get a 5-star in {guarantee_output} pulls, you will have a guaranteed 5-star pull!")
 
     if message == ".bag":
         # Manually replace spaces with '%20'
         encoded_author = author.replace(" ", "%20")
         send_message(f"{author}, you can access your inventory here: https://akai.gikopoi.com/akai.py/users.html#{encoded_author}")
-        #akailogger.log_to_file(f"{author}, you can access your inventory here: https://akai.gikopoi.com/akai.py/users.html#{encoded_author}")
+        log_to_file(f"{author}, you can access your inventory here: https://akai.gikopoi.com/akai.py/users.html#{encoded_author}")
