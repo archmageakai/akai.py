@@ -6,6 +6,13 @@ import os
 #import akailogger
 from plugin.akaiyen import check_balance, write_to_file, lottery
 
+bot_no = None
+
+def set_bot_no(value):
+    """Set bot_no from main script."""
+    global bot_no
+    bot_no = value
+
 def log_to_file(message):
     """ edit each log_to_file to contain [COMMAND]"""
 
@@ -13,7 +20,8 @@ def log_to_file(message):
     tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     format = f"[{tstamp}] {message} \n"
 
-    log_file_path = os.path.expanduser(f"~/akaipy-data/log_gacha.txt")
+    global bot_no
+    log_file_path = os.path.expanduser(f"~/akaipy-data/log_gacha{bot_no}.txt")
     
     with open(log_file_path, "a") as log_file:
         log_file.write(format)

@@ -39,7 +39,9 @@ if tripcode is True:
 # Initialize seen as a dictionary
 seen = {}
 
-import os
+bot_no = input("enter bot no: ").strip()
+akaiyen.set_bot_no(bot_no)
+gacha.set_bot_no(bot_no)
 
 # Log
 filename = input("Enter the name for the log file (default: log.txt): ").strip()

@@ -38,7 +38,7 @@ def reset_today_pull(send_message):
         # Log successful reset
         print(f"[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
         log_resets("[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
-        send_message("ANNOUNCEMENT! The gacha game has reset. Have fun with Gachapon! ^o^")
+        send_message("ANNOUNCEMENT! The gacha game daily pulls has reset. Have fun with Gachapon! ^o^")
 
     except Exception as e:
         print(f"Error: {e}")
