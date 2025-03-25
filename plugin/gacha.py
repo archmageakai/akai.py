@@ -66,7 +66,7 @@ def save_users(users_data):
         json.dump({"users": users_data}, f, indent=4)  # Save to the correct structure
 
 # get create user function
-def get_user(author, users_data):
+def get_user(author, users_data, send_message):
     """
     Get the user data for the specified author. 
 
@@ -111,6 +111,11 @@ def get_user(author, users_data):
         save_users(users_data)  # Save updated users data
         print(f"Created new account for {author}")
 
+        send_message(f"Welcome to the akai.py gacha game! You are registered! "
+        f"Refer to bot web index https://akai.gikopoi.com/akai.py/ for any assistance.")
+        log_to_file(f"Welcome to the akai.py gacha game! You are registered! "
+        f"Refer to bot web index https://akai.gikopoi.com/akai.py/ for any assistance.")
+
     return user_data
 
 ##### important variables #####
@@ -131,7 +136,7 @@ def pull(author, send_message, users_data):
     guarantee = False
 
     # Load or create the user's data
-    user_data = get_user(author, users_data)
+    user_data = get_user(author, users_data, send_message)
 
     # Check how many pulls the user has done today and the remaining pulls
     gacha_today = user_data.get("gacha", {}).get("today", 0)
@@ -357,8 +362,8 @@ def add_to_blades(author, blade_pulled, users_data):
 
     save_users(users_data)
 
-def get_guarantee(author, users_data):
-    user_data = get_user(author, users_data)
+def get_guarantee(author, users_data, send_message):
+    user_data = get_user(author, users_data, send_message)
     return user_data["gacha"].get("guarantee")
 
 """ COMMANDS """
@@ -379,17 +384,20 @@ def cmd(author, namespace, send_message):
         pull(author, send_message, users_data)
 
     if message == ".gacha_rate":
+        get_user(author, users_data, send_message)
+        
         send_message(f"1 pull from Gachapon = {GACHA_PULL_PRICE} akaiyen // {MAX_PULLS} pulls per day")
         log_to_file(f"1 pull from Gachapon = {GACHA_PULL_PRICE} akaiyen // {MAX_PULLS} pulls per day")
 
     if message == ".guarantee":
-        guarantee_count = get_guarantee(author, users_data)
+        guarantee_count = get_guarantee(author, users_data, send_message)
         guarantee_output = GUARANTEE_AT - guarantee_count 
         send_message(f"{author}, if you don't get a 5-star in {guarantee_output} pulls, you will have a guaranteed 5-star pull!")
         log_to_file(f"{author}, if you don't get a 5-star in {guarantee_output} pulls, you will have a guaranteed 5-star pull!")
 
     if message == ".bag":
-        # Manually replace spaces with '%20'
+        get_user(author, users_data, send_message)
+
         encoded_author = author.replace(" ", "%20")
         send_message(f"{author}, you can access your inventory here: https://akai.gikopoi.com/akai.py/users.html#{encoded_author}")
         log_to_file(f"{author}, you can access your inventory here: https://akai.gikopoi.com/akai.py/users.html#{encoded_author}")
