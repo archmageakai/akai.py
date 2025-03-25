@@ -16,9 +16,9 @@ def log_resets(message):
     except Exception as e:
         print(f"Error writing to log file: {e}")
 
-def reset_today_pull():
+def reset_today_pull(send_message):
     users_file = os.path.expanduser(f"{directory}/users.json")
-
+    
     try:
         if not os.path.exists(users_file):
             print(f"Error: {users_file} does not exist.")
@@ -38,6 +38,7 @@ def reset_today_pull():
         # Log successful reset
         print(f"[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
         log_resets("[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
+        send_message("ANNOUNCEMENT! The gacha game has reset. Have fun with Gachapon! ^o^")
 
     except Exception as e:
         print(f"Error: {e}")
@@ -75,3 +76,6 @@ def start():
     reset_thread.start()
 
     log_resets("[*] Timer started successfully.")
+
+def force_reset(send_message):
+    reset_today_pull(send_message)

@@ -139,6 +139,9 @@ def main():
 
             if val == ",WORLDF":
                 get_world(session, server, area, pid, is_worldf=True)
+
+            if val == ",FR":
+                reset.force_reset(send_message)
             
             # movement
             if val[0] == ",":
