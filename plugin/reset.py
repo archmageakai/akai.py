@@ -16,7 +16,7 @@ def log_resets(message):
     except Exception as e:
         print(f"Error writing to log file: {e}")
 
-def reset_today_pull(send_message):
+def reset_today_pull(smegaphone):
     users_file = os.path.expanduser(f"{directory}/users.json")
     
     try:
@@ -38,13 +38,13 @@ def reset_today_pull(send_message):
         # Log successful reset
         print(f"[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
         log_resets("[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
-        send_message("ANNOUNCEMENT! The gacha game daily pulls has reset. Have fun with Gachapon! ^o^")
+        smegaphone("ANNOUNCEMENT! The gacha game daily pulls has reset. Have fun with Gachapon! ^o^")
 
     except Exception as e:
         print(f"Error: {e}")
         log_resets(f"Error: {e}")
 
-def sleep():
+def sleep(smegaphone):
     now = datetime.utcnow()
     
     target_time = datetime(now.year, now.month, now.day) + timedelta(days=1)
@@ -60,22 +60,95 @@ def sleep():
 
     time.sleep(sleep_duration)
 
-    reset_today_pull()
+    reset_today_pull(smegaphone)
 
     print("[*] END RESET")
     log_resets("[*] END RESET")
 
     # Start the timer again for the next day
-    sleep()
+    sleep(smegaphone)
 
-def start():
+def start(smegaphone):
     if not os.path.exists(logfn):
         open(logfn, 'w').close()
 
-    reset_thread = threading.Thread(target=sleep, daemon=True)
+    import json
+import os
+import time
+from datetime import datetime, timedelta
+import threading
+
+directory = open(os.path.expanduser("~/akaipy-data/gacha_dir.txt"), "r")
+directory = directory.read().splitlines()[0].strip()
+
+logfn = os.path.expanduser('~/akaipy-data/reset.txt')
+
+def log_resets(message):
+    try:
+        with open(logfn, 'a', encoding='utf-8') as log_file:
+            log_file.write(f"{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} - {message}\n")
+    except Exception as e:
+        print(f"Error writing to log file: {e}")
+
+def reset_today_pull(smegaphone):
+    users_file = os.path.expanduser(f"{directory}/users.json")
+    
+    try:
+        if not os.path.exists(users_file):
+            print(f"Error: {users_file} does not exist.")
+            return
+        
+        with open(users_file, 'r', encoding="utf-8") as file:
+            data = json.load(file)
+
+        if "users" in data and isinstance(data["users"], list):
+            for user in data["users"]:
+                if "gacha" in user and "today" in user["gacha"]:
+                    user["gacha"]["today"] = 0
+
+        with open(users_file, 'w', encoding="utf-8") as file:
+            json.dump(data, file, indent=4)
+
+        # Log successful reset
+        print(f"[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
+        log_resets("[*] [UTC MIDNIGHT TODAY'S GACHA PULL RESET]")
+        smegaphone("ANNOUNCEMENT! The gacha game daily pulls has reset. Have fun with Gachapon! ^o^")
+
+    except Exception as e:
+        print(f"Error: {e}")
+        log_resets(f"Error: {e}")
+
+def sleep(smegaphone):
+    while True:
+        log_resets("CHECK LOOP")
+        now = datetime.utcnow()
+    
+        target_time = datetime(now.year, now.month, now.day) + timedelta(days=1)
+
+        sleep_duration = (target_time - now).total_seconds()
+
+        hours = int(sleep_duration // 3600)
+        minutes = int((sleep_duration % 3600) // 60)
+        seconds = int(sleep_duration % 60)
+
+        print(f"[*] Timer sleeping for {hours} hrs, {minutes} min, {seconds} sec until {target_time} UTC.")
+        log_resets(f"[*] Timer sleeping for {hours} hrs, {minutes} min, {seconds} sec until {target_time} UTC.")
+
+        time.sleep(sleep_duration)
+
+        reset_today_pull(smegaphone)
+
+        print("[*] END RESET")
+        log_resets("[*] END RESET")
+
+def start(smegaphone):
+    if not os.path.exists(logfn):
+        open(logfn, 'w').close()
+
+    reset_thread = threading.Thread(target=sleep, args=(smegaphone,), daemon=True)
     reset_thread.start()
 
     log_resets("[*] Timer started successfully.")
 
-def force_reset(send_message):
-    reset_today_pull(send_message)
+def force_reset(smegaphone):
+    reset_today_pull(smegaphone)

@@ -65,7 +65,7 @@ def main():
 
     if response in ("", "y"):
         print("[*] Starting reset thread...")
-        reset.start()
+        reset.start(smegaphone)
         print("[*] Reset thread started!")
     else:
         print("[*] Reset thread not started.")
@@ -143,7 +143,7 @@ def main():
                 get_world(session, server, area, pid, is_worldf=True)
 
             if val == ",FR":
-                reset.force_reset(send_message)
+                reset.force_reset(smegaphone)
             
             # movement
             if val[0] == ",":
@@ -298,6 +298,15 @@ def send_message(msg):
     # Send the message
     sio.emit("user-msg", msg)
     sio.emit("user-msg", "")
+    
+    # Log the message
+    tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_to_file(f"{tstamp} < {get_username(my_id)} > {msg}")
+
+def smegaphone(msg):
+    """super megaphone"""
+    # Send the message
+    sio.emit("user-msg", msg)
     
     # Log the message
     tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
