@@ -7,10 +7,11 @@ import math
 
 bot_no = None
 
-def set_bot_no(value):
+def set_bot_no(no):
     """Set bot_no from main script."""
     global bot_no
-    bot_no = value
+    bot_no = no
+    print(f"[yen] sees bot as BOT NO: {bot_no}")
 
 def log_to_file(message):
     """ edit each log_to_file to contain [COMMAND]"""

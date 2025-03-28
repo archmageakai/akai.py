@@ -42,6 +42,7 @@ seen = {}
 bot_no = input("enter bot no: ").strip()
 akaiyen.set_bot_no(bot_no)
 gacha.set_bot_no(bot_no)
+reset.set_bot_no(bot_no)
 
 # Log
 filename = input("Enter the name for the log file (default: log.txt): ").strip()
@@ -61,22 +62,29 @@ def upd_seen(username):
     seen[username] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 def main():
-    response = input("Do you want to start the reset thread? [y] or [enter] for yes / else no: ").strip().lower()
+
+    print("[*] Starting reset thread...")
+    reset.start(smegaphone)
+    print("[*] Reset thread started!")
+
+    # old reset switch
+    """response = input("Do you want to start the reset thread? [y] or [enter] for yes / else no: ").strip().lower()
 
     if response in ("", "y"):
         print("[*] Starting reset thread...")
         reset.start(smegaphone)
         print("[*] Reset thread started!")
     else:
-        print("[*] Reset thread not started.")
+        print("[*] Reset thread not started.")"""
 
     global api
     server = "play.gikopoi.com"
     area = "for"
     room = "bar"
-    character = input("Enter your giko (default: akai): ")
-    if not character:
-        character = "gacha"
+    character = "gacha"
+    #character = input("Enter your giko (default: akai): ")
+    #if not character:
+    #    character = "gacha"
     name = "akai.py"
     password = "GACHAPON"
     if tripcode:
@@ -434,6 +442,8 @@ def server_msg(event, namespace):
 
     if (author == anon_name) and anti_spy:
         return
+    
+    reset.checkBotNo(author, namespace, send_message)
 
 def get_irc_msgs():
     while True:

@@ -8,10 +8,11 @@ from plugin.akaiyen import check_balance, write_to_file, lottery
 
 bot_no = None
 
-def set_bot_no(value):
+def set_bot_no(no):
     """Set bot_no from main script."""
     global bot_no
-    bot_no = value
+    bot_no = no
+    print(f"[gacha] sees bot as BOT NO: {bot_no}")
 
 def log_to_file(message):
     """ edit each log_to_file to contain [COMMAND]"""
@@ -242,7 +243,7 @@ def pull(author, send_message, users_data):
                 continue  # Skip to the next iteration of the loop
 
     # Debugging: Log the pulled item
-    print(f"Item Pulled: {pulled}")
+    print(f"Pulled: {pulled}")
 
     if pulled is None:
         print(f"error with pulled.")
@@ -279,10 +280,12 @@ def pull(author, send_message, users_data):
 
     url = f"https://akai.gikopoi.com/akai.py/items.html#{pulled.get('item_ID')}"
 
+    pull_message = (f"[GACHAPON!] {author}, you pull ITEM: {name} ({rarity}) [ More details: {url} ] "
+                   f"// [{remaining_pulls - 1} / {MAX_PULLS} pull(s) remaining for today] [you spent {GACHA_PULL_PRICE} akaiyen]")
+
     if is_blade == True:
         url = f"https://akai.gikopoi.com/akai.py/blade.html#{pulled.get('blade_ID')}"
-
-    pull_message = (f"[GACHAPON!] {author}, you pull: {name} ({rarity}) [ More details: {url} ] "
+        pull_message = (f"[GACHAPON!] {author}, you pull BLADE: {name} ({rarity}) [ More details: {url} ] "
                    f"// [{remaining_pulls - 1} / {MAX_PULLS} pull(s) remaining for today] [you spent {GACHA_PULL_PRICE} akaiyen]")
 
     send_message(pull_message)
