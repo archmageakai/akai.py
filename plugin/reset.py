@@ -75,7 +75,7 @@ def sleep(smegaphone):
 
         #reset_today_pull(smegaphone)
         if bot_no == 1:
-            reset_today_pull(smegaphone)
+            reset_today_pull()
     
         smegaphone("ANNOUNCEMENT! The gacha game daily pulls has reset. Have fun with Gachapon! ^o^")
 
@@ -90,6 +90,9 @@ def start(smegaphone):
     reset_thread.start()
 
     log_resets("[*] Timer started successfully.")
+
+def force_reset():
+    reset_today_pull()
 
 """def checkBotNo(author, namespace, send_message):
     

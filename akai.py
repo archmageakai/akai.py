@@ -70,7 +70,7 @@ def main():
     # old reset switch
     """response = input("Do you want to start the reset thread? [y] or [enter] for yes / else no: ").strip().lower()
 
-    if response in ("", "y"):
+    if response in ("", "y")F,:
         print("[*] Starting reset thread...")
         reset.start(smegaphone)
         print("[*] Reset thread started!")
@@ -151,7 +151,7 @@ def main():
                 get_world(session, server, area, pid, is_worldf=True)
 
             if val == ",FR":
-                reset.force_reset(smegaphone)
+                reset.force_reset()
             
             # movement
             if val[0] == ",":
