@@ -443,7 +443,7 @@ def server_msg(event, namespace):
     if (author == anon_name) and anti_spy:
         return
     
-    reset.checkBotNo(author, namespace, send_message)
+    #reset.checkBotNo(author, namespace, send_message)
 
 def get_irc_msgs():
     while True:
