@@ -39,7 +39,13 @@ if tripcode is True:
 # Initialize seen as a dictionary
 seen = {}
 
-bot_no = input("enter bot no: ").strip()
+while True:
+    try:
+        bot_no = int(input("Enter bot no: ").strip())
+        break  # Exit the loop if input is valid
+    except ValueError:
+        print("Invalid input. Please enter a valid integer.")
+
 akaiyen.set_bot_no(bot_no)
 gacha.set_bot_no(bot_no)
 reset.set_bot_no(bot_no)
@@ -115,6 +121,8 @@ def main():
     logon(server, area, room, character, name, password)
 
     print([Users[u] for u in Users])
+
+    bot_list(bot_no, room)
 
     while True:
         val = input()
@@ -236,7 +244,7 @@ def get_users(s: requests.Session, server, area, room):
         for user in users:
             global Users
             user_id = user['id']
-            
+
             #set_user_status(user, add_idle=True)
 
             Users[user_id] = user['name']
@@ -256,7 +264,7 @@ def get_user_ids():
     for user_id, username in Users.items():
         print(f"- {username} ({user_id})")
 
-def get_world(s: requests.Session, server, area, pid, is_worldf=False):
+def get_world(s: requests.Session, server, area, pid, is_worldf=False, botsearch=False):
     print("[*] Fetching world users...")
 
     if not server.startswith("http"):
@@ -264,6 +272,8 @@ def get_world(s: requests.Session, server, area, pid, is_worldf=False):
 
     with open('./roomid.txt', 'r') as file:
         room_names = [line.strip() for line in file.readlines()]
+
+    bot_rooms = [] # all instances of akai.py list
 
     for room_name in room_names:
         url = f'{server}{api}/areas/{area}/rooms/{room_name}'
@@ -280,8 +290,15 @@ def get_world(s: requests.Session, server, area, pid, is_worldf=False):
 
                 #set_user_status(user, add_idle=True)
 
+            if botsearch:
+                    for user in users:
+                        if user['name'] == 'akai.py◆NEET':
+                            bot_rooms.append(room_name)
+                            send_message(bot_rooms)
+
             if users:
                 print(f"[*] Found {len(users)} users in {room_name}.")
+
                 if is_worldf:
                     print(f"[*] Users in {room_name}:")
                     for user_id, username in [(user['id'], user['name']) for user in users]:
@@ -293,7 +310,55 @@ def get_world(s: requests.Session, server, area, pid, is_worldf=False):
         else:
             print(f"[!] Error: Could not fetch data for room {room_name}. Status Code: {response.status_code}")
 
-    print(f"[*] WORLD USERS GATHER COMPLETE.")
+def get_bot_list(bot_no):
+    bot_list = os.path.expanduser("~/bot_rooms.txt")
+
+    print(f"File path: {bot_list}")
+
+    try:
+        with open(bot_list, 'r') as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        print(f"File not found at {bot_list}. Returning empty list.")
+        return
+
+    non_empty_lines = []
+    for i, line in enumerate(lines, start=1):
+        stripped_line = line.strip()  # Remove leading/trailing whitespace
+        if stripped_line and i != int(bot_no):  # Skip the line corresponding to bot_no
+            non_empty_lines.append(f" {stripped_line}")
+    
+    if non_empty_lines:
+        print(", ".join(non_empty_lines))
+        return "But, I'm at these other maps so check here: " + " | ".join(non_empty_lines)
+    else:
+        print("No valid lines found.")
+        return ""
+
+def bot_list(bot_no, room):
+    bot_list = os.path.expanduser("~/bot_rooms.txt")
+
+    print(f"File path: {bot_list}")
+
+    try:
+        with open(bot_list, 'r') as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        # If the file does not exist, create it and initialize an empty list of lines
+        print(f"File not found. Creating a new file at {bot_list}.")
+        lines = []
+
+    while len(lines) < int(bot_no):  # Convert bot_no to an integer for comparison
+        lines.append("\n")
+    
+    # Replace the line at the bot_no (1-indexed) with the new room value
+    lines[int(bot_no) - 1] = room + "\n"
+    
+    # Write the updated lines back to the file
+    with open(bot_list, 'w') as file:
+        file.writelines(lines)
+
+    print(f"Room '{room}' has been written to line {bot_no} in {bot_list}.")
 
 def get_username(userid):
     try:
@@ -438,7 +503,10 @@ def server_msg(event, namespace):
         gacha.cmd(author, namespace, send_message) # call gacha
     else:
         if namespace in gacha.command:
-            send_message(f"Hey {author}, gacha-game is turned off here, if you want to play: go to Bar Street aka bar_st map!")
+            rm_list = get_bot_list(bot_no)
+            send_message(f"Hey {author}, gacha-game is turned off on this map... "
+                        f" {rm_list} ")
+            #send_message(f"Hey {author}, gacha-game is turned off here, if you want to play: go to Bar Street aka bar_st map!")
 
     if (author == anon_name) and anti_spy:
         return
@@ -500,3 +568,4 @@ if __name__ == "__main__":
         main()
     finally:
         log_file.close()
+        bot_list(bot_no, room="")

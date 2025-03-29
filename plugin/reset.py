@@ -59,8 +59,12 @@ def sleep(smegaphone):
     while True:
         log_resets("CHECK LOOP")
         now = datetime.utcnow()
-    
-        target_time = datetime(now.year, now.month, now.day) + timedelta(days=1)
+
+        # 24 hr timer
+        #target_time = datetime(now.year, now.month, now.day) + timedelta(days=1)
+
+        #test timer
+        target_time = now + timedelta(seconds=30)
 
         sleep_duration = (target_time - now).total_seconds()
 
@@ -75,12 +79,17 @@ def sleep(smegaphone):
 
         #reset_today_pull(smegaphone)
         if bot_no == 1:
+            print("[*] Resetting today's pull because bot_no is 1")
+            log_resets("[*] Resetting today's pull because bot_no is 1")
             reset_today_pull()
+
+            print("[*] END RESET")
+            log_resets("[*] END RESET")
     
         smegaphone("ANNOUNCEMENT! The gacha game daily pulls has reset. Have fun with Gachapon! ^o^")
 
-        print("[*] END RESET")
-        log_resets("[*] END RESET")
+        print("[*] timer restarted")
+        log_resets("[*] timer restarted")
 
 def start(smegaphone):
     if not os.path.exists(logfn):
@@ -93,6 +102,8 @@ def start(smegaphone):
 
 def force_reset():
     reset_today_pull()
+
+
 
 """def checkBotNo(author, namespace, send_message):
     
