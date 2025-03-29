@@ -61,10 +61,10 @@ def sleep(smegaphone):
         now = datetime.utcnow()
 
         # 24 hr timer
-        #target_time = datetime(now.year, now.month, now.day) + timedelta(days=1)
+        target_time = datetime(now.year, now.month, now.day) + timedelta(days=1)
 
         #test timer
-        target_time = now + timedelta(seconds=30)
+        #target_time = now + timedelta(seconds=30)
 
         sleep_duration = (target_time - now).total_seconds()
 
