@@ -5,7 +5,6 @@ import time
 import math
 #import akailogger
 
-MAX_TRANSFER = 100000
 bot_no = None
 
 def set_bot_no(no):
@@ -35,7 +34,6 @@ def send(author, message, send_message):
     Handle messages to detect when a user sends coins to akai.py and process them.
     """
     
-    
     transaction = False
     akaiyen_total_transfer = 0.00
     
@@ -46,45 +44,28 @@ def send(author, message, send_message):
             coins = int(match.group(2))
             print(f"[AKAIYEN] Detected {author} has sent akai.py◆NEET {coins} gikocoins.")
 
-            if coins > MAX_TRANSFER:
+            if coins > 10000:
                 send_message(f"!send {coins} {author}")
                 send_message(
-                    f"Here is a refund, {author}! We only accept a maximum transfer of {MAX_TRANSFER} gikocoins at this time."
+                    f"Here is a refund, {author}! We only accept a maximum transfer of 10000 gikocoins at this time."
                 )
                 print(f"[AKAIYEN] for {author}, refund {coins} gikocoins due to over max transfers")
                 
                 log_to_file(f"!send {coins} {author}")
                 log_to_file(
-                    f"Here is a refund, {author}! We only accept a maximum transfer of {MAX_TRANSFER} gikocoins at this time.")
+                    f"Here is a refund, {author}! We only accept a maximum transfer of 10000 gikocoins at this time.")
             else:               
-                # optimized loop with chunks
-                chunk_size = 10000
-                num_chunks = coins // chunk_size
-                remaining_coins = coins % chunk_size
-                
-                print(f"[AKAIYEN] start chunk processing, {num_chunks} chunks of {chunk_size} and {remaining_coins} remaining coins")
-                
-                # Process in chunks
-                for _ in range(num_chunks):
+                # Process each gikocoin individually      
+                print(f"[AKAIYEN] start loop - reading coins/rates, writing to bank/records")
+                for _ in range(coins):
                     akaiyen = 0.00
                     rate = akaiyen_rate(author)
-                    akaiyen_i = chunk_size / rate
+                    akaiyen_i = 1 / rate
                     akaiyen += akaiyen_i
                     akaiyen_total_transfer += akaiyen_i
                     write_to_file(author, akaiyen)  
                     write_to_totalyen(author, akaiyen)
-                
-                # remaining coins, outside chunk
-                if remaining_coins > 0:
-                    akaiyen = 0.00
-                    rate = akaiyen_rate(author)
-                    akaiyen_i = remaining_coins / rate
-                    akaiyen += akaiyen_i
-                    akaiyen_total_transfer += akaiyen_i
-                    write_to_file(author, akaiyen)  
-                    write_to_totalyen(author, akaiyen)
-                
-                print(f"[AKAIYEN] chunk loop finished")
+                print(f"[AKAIYEN] loop finished")
                 transaction = True
                 
             if transaction == True:
@@ -210,9 +191,8 @@ def akaiyen_rate(author):
     # Determine the rate dynamically
     rate = 10  # Start with the base rate
     threshold = 100  # Initial threshold
-    MAX_THRESHOLD = 100000000  # cap
 
-    while yentotal >= threshold and threshold <= MAX_THRESHOLD:
+    while yentotal >= threshold:
         rate *= 10  # Increase the rate by a factor of 10
         threshold *= 10  # Increase the threshold by a factor of 10
 
@@ -320,7 +300,7 @@ command = {
                         }
 
 def cmd(author, namespace, send_message):
-    
+
     message = namespace.strip()
     result = None
 
@@ -329,10 +309,10 @@ def cmd(author, namespace, send_message):
 
     # HOW TO CONVERT GIKOCOINS TO AKAIYEN
     if message == ".convert":
-        send_message(f"Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen. "
-                     f"(max transfer: {MAX_TRANSFER} gikocoins, and you will be refunded upon transactions beyond maximum)")
-        log_to_file(f"Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen. "
-                     f"(max transfer: {MAX_TRANSFER} gikocoins, and you will be refunded upon transactions beyond maximum)")
+        send_message("Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen. "
+                     "(max transfer: 10000 gikocoins, and you will be refunded upon transactions beyond maximum)")
+        log_to_file("Type '!send <amount> akai.py◆NEET' to convert gikocoins to akaiyen. "
+                     "(max transfer: 10000 gikocoins, and you will be refunded upon transactions beyond maximum)")
 
     # CHECK BALANCE
     if message == ".balance":

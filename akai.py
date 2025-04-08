@@ -39,10 +39,22 @@ if tripcode is True:
 # Initialize seen as a dictionary
 seen = {}
 
+confirmation_path = os.path.expanduser("~/bot_rooms.txt")
+
 while True:
     try:
         bot_no = int(input("Enter bot no: ").strip())
-        break  # Exit the loop if input is valid
+
+        # Read the file and check if the corresponding line has content
+        if os.path.exists(confirmation_path):
+            with open(confirmation_path, 'r') as file:
+                lines = file.readlines()
+
+            if 1 <= bot_no <= len(lines) and lines[bot_no - 1].strip():
+                print(f"Bot {bot_no} already assigned to: {lines[bot_no - 1].strip()}. Choose another bot no.")
+                continue  # Reloop if the line is not blank
+        
+        break  # Exit loop if bot_no is valid and its line is blank or out of range
     except ValueError:
         print("Invalid input. Please enter a valid integer.")
 
