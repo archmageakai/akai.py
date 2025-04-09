@@ -5,6 +5,8 @@ import time
 import math
 #import akailogger
 
+# add save states for player/author name
+
 MAX_TRANSFER = 100000
 bot_no = None
 
@@ -88,7 +90,7 @@ def send(author, message, send_message):
                 transaction = True
                 
             if transaction == True:
-                if akaiyen_total_transfer == 0.00:
+                if akaiyen_total_transfer <= 0.01:
                     # Handle case where no akaiyen could be converted
                     send_message(f"!send {coins} {author}")
                     send_message(
@@ -210,7 +212,7 @@ def akaiyen_rate(author):
     # Determine the rate dynamically
     rate = 10  # Start with the base rate
     threshold = 100  # Initial threshold
-    MAX_THRESHOLD = 100000000  # cap
+    MAX_THRESHOLD = 100000  # cap
 
     while yentotal >= threshold and threshold <= MAX_THRESHOLD:
         rate *= 10  # Increase the rate by a factor of 10

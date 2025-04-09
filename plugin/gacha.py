@@ -6,6 +6,8 @@ import os
 #import akailogger
 from plugin.akaiyen import check_balance, write_to_file, lottery
 
+# add save states for player/author name
+
 bot_no = None
 
 def set_bot_no(no):
