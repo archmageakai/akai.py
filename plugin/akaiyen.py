@@ -36,7 +36,7 @@ def send(author, message, send_message):
     """
     Handle messages to detect when a user sends coins to akai.py and process them.
     """
-    
+    isThreshold = 0
     
     transaction = False
     akaiyen_total_transfer = 0.00
@@ -58,8 +58,53 @@ def send(author, message, send_message):
                 log_to_file(f"!send {coins} {author}")
                 log_to_file(
                     f"Here is a refund, {author}! We only accept a maximum transfer of {MAX_TRANSFER} gikocoins at this time.")
-            else:               
-                # optimized loop with chunks
+            else:
+                # start threshold loop               
+                rate, threshold, yentotal = akaiyen_rate(author)
+                until_threshold = abs(yentotal - threshold)
+                until_threshold *= rate
+
+                while coins > until_threshold:
+                    chunk_size = 10000
+                    num_chunks = until_threshold // chunk_size
+                    remaining_threshold = until_threshold % chunk_size
+
+                    print(f"[AKAIYEN] init_above_threshold"
+                          f"start chunk processing, {num_chunks} chunks of {chunk_size} and {remaining_threshold} remaining coins")
+
+                    for _ in range(int(num_chunks)):
+                        akaiyen = 0.00
+                        rate, _, _ = akaiyen_rate(author)
+                        akaiyen_i = chunk_size / rate
+                        akaiyen += akaiyen_i
+                        akaiyen_total_transfer += akaiyen_i
+                        write_to_file(author, akaiyen)  
+                        write_to_totalyen(author, akaiyen)
+
+                    if remaining_threshold > 0:
+                        akaiyen = 0.00
+                        rate, _, _ = akaiyen_rate(author)
+                        akaiyen_i = remaining_threshold / rate
+                        akaiyen += akaiyen_i
+                        akaiyen_total_transfer += akaiyen_i
+                        write_to_file(author, akaiyen)  
+                        write_to_totalyen(author, akaiyen)
+
+                    coins -= until_threshold
+                    print(f"coins: {coins}")
+                    rate, threshold, yentotal = akaiyen_rate(author)
+                    until_threshold = abs(yentotal - threshold)
+                    print(until_threshold)
+                    until_threshold *= rate
+                    print(until_threshold)
+                    
+                    isThreshold = 1
+                    print(f"[AKAIYEN] pass threshold success")
+                
+                if isThreshold == 1:
+                    print(f"[AKAIYEN] until threshold chunk loop finished")
+                 # end threshold loop
+                
                 chunk_size = 10000
                 num_chunks = coins // chunk_size
                 remaining_coins = coins % chunk_size
@@ -67,9 +112,9 @@ def send(author, message, send_message):
                 print(f"[AKAIYEN] start chunk processing, {num_chunks} chunks of {chunk_size} and {remaining_coins} remaining coins")
                 
                 # Process in chunks
-                for _ in range(num_chunks):
+                for _ in range(int(num_chunks)):
                     akaiyen = 0.00
-                    rate = akaiyen_rate(author)
+                    rate, _, _ = akaiyen_rate(author)
                     akaiyen_i = chunk_size / rate
                     akaiyen += akaiyen_i
                     akaiyen_total_transfer += akaiyen_i
@@ -79,7 +124,7 @@ def send(author, message, send_message):
                 # remaining coins, outside chunk
                 if remaining_coins > 0:
                     akaiyen = 0.00
-                    rate = akaiyen_rate(author)
+                    rate, _, _ = akaiyen_rate(author)
                     akaiyen_i = remaining_coins / rate
                     akaiyen += akaiyen_i
                     akaiyen_total_transfer += akaiyen_i
@@ -90,7 +135,7 @@ def send(author, message, send_message):
                 transaction = True
                 
             if transaction == True:
-                if akaiyen_total_transfer <= 0.01:
+                if akaiyen_total_transfer < 0.01:
                     # Handle case where no akaiyen could be converted
                     send_message(f"!send {coins} {author}")
                     send_message(
@@ -218,7 +263,7 @@ def akaiyen_rate(author):
         rate *= 10  # Increase the rate by a factor of 10
         threshold *= 10  # Increase the threshold by a factor of 10
 
-    return rate
+    return rate, threshold, yentotal
 
 def write_to_file(author, akaiyen):
     """
@@ -348,7 +393,7 @@ def cmd(author, namespace, send_message):
 
     # CHECK RATE
     if message == ".yen_rate":
-        rate = akaiyen_rate(author)
+        rate, _, _ = akaiyen_rate(author)
         send_message(f"{author}: your rate is 1 akaiyen = {rate} gikocoins [ see more info: https://akai.gikopoi.com/akai.py/rate.html ]")
         log_to_file(f"{author}: your rate is 1 akaiyen = {rate} gikocoins [ see more info: https://akai.gikopoi.com/akai.py/rate.html ]")
     
