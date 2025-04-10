@@ -59,12 +59,13 @@ def send(author, message, send_message):
                 log_to_file(
                     f"Here is a refund, {author}! We only accept a maximum transfer of {MAX_TRANSFER} gikocoins at this time.")
             else:
-                # start threshold loop               
+                # start threshold loop
+                coins_processed = coins
                 rate, threshold, yentotal = akaiyen_rate(author)
                 until_threshold = abs(yentotal - threshold)
                 until_threshold *= rate
 
-                while coins > until_threshold:
+                while coins_processed > until_threshold:
                     chunk_size = 10000
                     num_chunks = until_threshold // chunk_size
                     remaining_threshold = until_threshold % chunk_size
@@ -90,8 +91,8 @@ def send(author, message, send_message):
                         write_to_file(author, akaiyen)  
                         write_to_totalyen(author, akaiyen)
 
-                    coins -= until_threshold
-                    print(f"coins: {coins}")
+                    coins_processed -= until_threshold
+                    print(f"coins: {coins_processed}")
                     rate, threshold, yentotal = akaiyen_rate(author)
                     until_threshold = abs(yentotal - threshold)
                     print(until_threshold)
@@ -106,8 +107,8 @@ def send(author, message, send_message):
                  # end threshold loop
                 
                 chunk_size = 10000
-                num_chunks = coins // chunk_size
-                remaining_coins = coins % chunk_size
+                num_chunks = coins_processed // chunk_size
+                remaining_coins = coins_processed % chunk_size
                 
                 print(f"[AKAIYEN] start chunk processing, {num_chunks} chunks of {chunk_size} and {remaining_coins} remaining coins")
                 
