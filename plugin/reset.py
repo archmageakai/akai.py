@@ -88,6 +88,7 @@ def sleep(smegaphone):
         
         smegaphone("New max transfer for gikocoin limit at 100000 gikocoins per transfer & akaiyen rates cap see https://akai.gikopoi.com/akai.py/rate.html")
         smegaphone("ANNOUNCEMENT! The gacha game daily pulls has reset. Have fun with Gachapon! ^o^")
+        smegaphone("")
 
         print("[*] timer restarted")
         log_resets("[*] timer restarted")
