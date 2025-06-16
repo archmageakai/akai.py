@@ -263,7 +263,7 @@ def get_users(s: requests.Session, server, area, room):
             upd_seen(user['name'])
 
         user_list = ", ".join([Users[u] for u in Users])
-        log_to_file("[+] " + "[" + user_list + "]")
+        #log_to_file("[+] " + "[" + user_list + "]")
 
 def get_user_ids():
     global Users
@@ -386,7 +386,7 @@ def send_message(msg):
     
     # Log the message
     tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    log_to_file(f"{tstamp} < {get_username(my_id)} > {msg}")
+    #log_to_file(f"{tstamp} < {get_username(my_id)} > {msg}")
 
 def smegaphone(msg):
     """super megaphone"""
@@ -434,7 +434,7 @@ def user_join(data):
         tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         printJoin = f"{tstamp} {user[1]} joined (ID: {user[0]})"
         print(printJoin)
-        log_to_file(printJoin)
+        #log_to_file(printJoin)
         if len(user[1].strip()):
             upd_seen(user[1])
     except Exception as ex:
@@ -442,11 +442,11 @@ def user_join(data):
         #print(error_message)
         #log_to_file(error_message)
         print(ex)
-        log_to_file(f"[!] Error in user_join: {ex}")
+        #log_to_file(f"[!] Error in user_join: {ex}")
         pass
     user_list = ", ".join([Users[u] for u in Users])
     print("[+] " + str([Users[u] for u in Users]))
-    log_to_file("[+] " + "[" + user_list + "]")
+    #log_to_file("[+] " + "[" + user_list + "]")
 
 
 @sio.on('server-user-left-room')
@@ -456,7 +456,7 @@ def user_leave(data):
         tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         printLeave = f"{tstamp} {Users[data]} left (ID: {data})"
         print(printLeave)
-        log_to_file(printLeave)
+        #log_to_file(printLeave)
         if len(Users[data].strip()):
             upd_seen(Users[data])        
         del Users[data]
@@ -470,7 +470,7 @@ def user_leave(data):
     # Log the updated Users list
     user_list = ", ".join([Users[u] for u in Users])
     print("[-] " + str([Users[u] for u in Users]))
-    log_to_file("[-] " + "[" + user_list + "]")
+    #log_to_file("[-] " + "[" + user_list + "]")
 
 @sio.on('server-msg')
 def server_msg(event, namespace):
@@ -487,7 +487,7 @@ def server_msg(event, namespace):
     tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     msg = '{} < {} > {}'.format(tstamp, author, namespace)
     print(msg)
-    log_to_file(msg)
+    #log_to_file(msg)
 
     # remotely turn off plugins
     remote_switch(author, namespace, send_message)
@@ -531,7 +531,7 @@ def get_irc_msgs():
             qdmsgs = ircrelay.queued_msgs()
             for m in qdmsgs:
                 send_message(m)
-                log_to_file(m)
+                #log_to_file(m)
                 time.sleep(1)
 
 def remote_switch(author, namespace, send_message):

@@ -1,0 +1,26 @@
+Revisions to gacha:
+
+1) Blades can be pulled multiple times. QTYs will be output as powerOf/Exponentials, i think i'll have 5 stars move up quicker than 4 stars. No limit to gettings duplicate blades. If you pull a blade send time it outputs Blade name (2) if 2nd time
+
+2) Blade cores: 4 star blades give you 3 cores. 5 star blades give you 7 cores.
+
+3) Weapon types don't matter yet. maybe don't let them.
+
+4) Blade Skills (unique abilities, use skills to dish out high dmg(atk), use buffs, heal
+
+5) each blade basically just ups your stats, gives you new skill to use. instead of a "party"
+
+6) Atk/Def/HP/EP
+
+7) options: Atk, Defend, Blade Skill, Item
+
+8) output:
+   line 1: you move / they move (damage here)
+   line 2: HP: xxxx EP: xxxx | Atk / Def / Skl / Itm
+
+9) demon lord behavior 
+
+
+
+
+  

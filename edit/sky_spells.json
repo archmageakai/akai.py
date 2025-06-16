@@ -1,0 +1,520 @@
+[
+  {
+    "name": "Stone Hammer",
+    "spell_element": "Earth",
+    "sepith_list": {
+      "Earth": 1
+    },
+    "cost": "110 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "10",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Earth Lance",
+    "spell_element": "Earth",
+    "sepith_list": {
+      "Earth": 1
+    },
+    "cost": "520 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "50",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Petrify Breath",
+    "spell_element": "Earth",
+    "sepith_list": {
+      "Earth": 1
+    },
+    "cost": "330 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "20",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Stone Impact",
+    "spell_element": "Earth",
+    "sepith_list": {
+      "Earth": 3
+    },
+    "cost": "3×250 EP",
+    "time_to_cast": "15 AT",
+    "time_delay": "20 AT",
+    "power": "10",
+    "targets_effect": "Circle around target (3 radius)"
+  },
+  {
+    "name": "Titanic Roar",
+    "spell_element": "Earth",
+    "sepith_list": {
+      "Earth": 8
+    },
+    "cost": "8×450 EP",
+    "time_to_cast": "20 AT",
+    "time_delay": "20 AT",
+    "power": "30",
+    "targets_effect": "All targets"
+  },
+  {
+    "name": "Aqua Bleed",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 1
+    },
+    "cost": "110 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "10",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Blue Impact",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 1
+    },
+    "cost": "520 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "50",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Diamond Dust",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 4,
+      "Wind": 2,
+      "Space": 1
+    },
+    "cost": "4×2×140 EP",
+    "time_to_cast": "15 AT",
+    "time_delay": "20 AT",
+    "power": "20",
+    "targets_effect": "Set circle (2 radius)"
+  },
+  {
+    "name": "Fire Bolt",
+    "spell_element": "Fire",
+    "sepith_list": {
+      "Fire": 1
+    },
+    "cost": "110 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "10",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Flare Arrow",
+    "spell_element": "Fire",
+    "sepith_list": {
+      "Fire": 1
+    },
+    "cost": "320 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "40",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Napalm Breath",
+    "spell_element": "Fire",
+    "sepith_list": {
+      "Fire": 1
+    },
+    "cost": "640 EP",
+    "time_to_cast": "15 AT",
+    "time_delay": "20 AT",
+    "power": "80",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Fire Bolt EX",
+    "spell_element": "Fire",
+    "sepith_list": {
+      "Fire": 3
+    },
+    "cost": "3×120 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "20",
+    "targets_effect": "Circle around target (3 radius)"
+  },
+  {
+    "name": "Spiral Flare",
+    "spell_element": "Fire",
+    "sepith_list": {
+      "Fire": 5
+    },
+    "cost": "5×230 EP",
+    "time_to_cast": "15 AT",
+    "time_delay": "20 AT",
+    "power": "50",
+    "targets_effect": "Circle around target (3 radius)"
+  },
+  {
+    "name": "Volcanic Rave",
+    "spell_element": "Fire",
+    "sepith_list": {
+      "Fire": 8
+    },
+    "cost": "8×4×250 EP",
+    "time_to_cast": "20 AT",
+    "time_delay": "20 AT",
+    "power": "90",
+    "targets_effect": "Circle around target (3 radius)"
+  },
+  {
+    "name": "Air Strike",
+    "spell_element": "Wind",
+    "sepith_list": {
+      "Wind": 1
+    },
+    "cost": "110 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "10",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Aerial",
+    "spell_element": "Wind",
+    "sepith_list": {
+      "Wind": 1
+    },
+    "cost": "420 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "20",
+    "targets_effect": "Set circle (3 radius)"
+  },
+  {
+    "name": "Aero Storm",
+    "spell_element": "Wind",
+    "sepith_list": {
+      "Wind": 1
+    },
+    "cost": "840 EP",
+    "time_to_cast": "15 AT",
+    "time_delay": "20 AT",
+    "power": "50",
+    "targets_effect": "Set circle (5 radius)"
+  },
+  {
+    "name": "Lightning",
+    "spell_element": "Wind",
+    "sepith_list": {
+      "Wind": 4
+    },
+    "cost": "4×220 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "30",
+    "targets_effect": "Set line (1 width)"
+  },
+  {
+    "name": "Plasma Wave",
+    "spell_element": "Wind",
+    "sepith_list": {
+      "Wind": 8
+    },
+    "cost": "8×450 EP",
+    "time_to_cast": "15 AT",
+    "time_delay": "20 AT",
+    "power": "40",
+    "targets_effect": "Set line (2 width)"
+  },
+  {
+    "name": "Shadow Spear",
+    "spell_element": "Time",
+    "sepith_list": {
+      "Time": 1
+    },
+    "cost": "520 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "20",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Hell Gate",
+    "spell_element": "Time",
+    "sepith_list": {
+      "Time": 4
+    },
+    "cost": "4×2×130 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "50",
+    "targets_effect": "Circle around target (2 radius)"
+  },
+  {
+    "name": "White Gehenna",
+    "spell_element": "Time",
+    "sepith_list": {
+      "Time": 8
+    },
+    "cost": "8×4×240 EP",
+    "time_to_cast": "20 AT",
+    "time_delay": "20 AT",
+    "power": "80",
+    "targets_effect": "Set circle (3 radius)"
+  },
+  {
+    "name": "Soul Blur",
+    "spell_element": "Time",
+    "sepith_list": {
+      "Time": 1
+    },
+    "cost": "110 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "10",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Earth Guard",
+    "spell_element": "Earth",
+    "sepith_list": {
+      "Earth": 1
+    },
+    "cost": "210 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Earth Wall",
+    "spell_element": "Earth",
+    "sepith_list": {
+      "Earth": 1
+    },
+    "cost": "430 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Circle around target (2 radius)"
+  },
+  {
+    "name": "Crest",
+    "spell_element": "Earth",
+    "sepith_list": {
+      "Earth": 4
+    },
+    "cost": "4×3×2×120 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Tear",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 1
+    },
+    "cost": "110 EP",
+    "time_to_cast": "3 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Teara",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 1
+    },
+    "cost": "420 EP",
+    "time_to_cast": "4 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Tearal",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 1
+    },
+    "cost": "640 EP",
+    "time_to_cast": "6 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "La Tear",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 2
+    },
+    "cost": "2×120 EP",
+    "time_to_cast": "5 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Circle around target (2 radius)"
+  },
+  {
+    "name": "La Teara",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 5
+    },
+    "cost": "5×250 EP",
+    "time_to_cast": "7 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Circle around target (3 radius)"
+  },
+  {
+    "name": "Thelas",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 4
+    },
+    "cost": "4×2×110 EP",
+    "time_to_cast": "5 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Curia",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 4
+    },
+    "cost": "4×210 EP",
+    "time_to_cast": "5 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "La Curia",
+    "spell_element": "Water",
+    "sepith_list": {
+      "Water": 8
+    },
+    "cost": "8×4×230 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Circle around target (5 radius)"
+  },
+  {
+    "name": "Forte",
+    "spell_element": "Fire",
+    "sepith_list": {
+      "Fire": 4
+    },
+    "cost": "4×3×2×120 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Sylphen Guard",
+    "spell_element": "Wind",
+    "sepith_list": {
+      "Wind": 1
+    },
+    "cost": "210 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Sylphen Wing",
+    "spell_element": "Wind",
+    "sepith_list": {
+      "Wind": 1
+    },
+    "cost": "630 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Clock Up",
+    "spell_element": "Time",
+    "sepith_list": {
+      "Time": 1
+    },
+    "cost": "110 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Clock Up EX",
+    "spell_element": "Time",
+    "sepith_list": {
+      "Time": 1
+    },
+    "cost": "930 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Anti-Sept",
+    "spell_element": "Time",
+    "sepith_list": {
+      "Time": 1
+    },
+    "cost": "320 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Anti-Sept All",
+    "spell_element": "Time",
+    "sepith_list": {
+      "Time": 1
+    },
+    "cost": "1140 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Set circle (3 radius)"
+  },
+  {
+    "name": "Saint",
+    "spell_element": "Mirage",
+    "sepith_list": {
+      "Mirage": 1
+    },
+    "cost": "4×3×240 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  },
+  {
+    "name": "Chaos Brand",
+    "spell_element": "Mirage",
+    "sepith_list": {
+      "Mirage": 1
+    },
+    "cost": "510 EP",
+    "time_to_cast": "10 AT",
+    "time_delay": "20 AT",
+    "power": "",
+    "targets_effect": "Single target"
+  }
+]

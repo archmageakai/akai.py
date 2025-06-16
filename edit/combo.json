@@ -1,0 +1,662 @@
+{
+    "['Earth', 'Earth', 'Earth']": {
+        "name": "Quake (Earth/Earth/Earth)",
+        "damage": 231
+    },
+    "['Earth', 'Earth', 'Electric']": {
+        "name": "Volt Surge (Earth/Earth/Electric)",
+        "damage": 174
+    },
+    "['Earth', 'Earth', 'Fire']": {
+        "name": "Blazing Fury (Earth/Earth/Fire)",
+        "damage": 215
+    },
+    "['Earth', 'Earth', 'Ice']": {
+        "name": "Glacier (Earth/Earth/Ice)",
+        "damage": 198
+    },
+    "['Earth', 'Earth', 'Light']": {
+        "name": "Luminescence (Earth/Earth/Light)",
+        "damage": 241
+    },
+    "['Earth', 'Earth', 'Dark']": {
+        "name": "Nightfall (Earth/Earth/Dark)",
+        "damage": 160
+    },
+    "['Earth', 'Earth', 'Void']": {
+        "name": "Abyssal Wrath (Earth/Earth/Void)",
+        "damage": 178
+    },
+    "['Earth', 'Earth', 'Water']": {
+        "name": "Deluge (Earth/Earth/Water)",
+        "damage": 234
+    },
+    "['Earth', 'Earth', 'Wind']": {
+        "name": "Gale Force (Earth/Earth/Wind)",
+        "damage": 221
+    },
+    "['Earth', 'Electric', 'Electric']": {
+        "name": "Volt Surge (Earth/Electric/Electric)",
+        "damage": 193
+    },
+    "['Earth', 'Electric', 'Fire']": {
+        "name": "Inferno (Earth/Electric/Fire)",
+        "damage": 161
+    },
+    "['Earth', 'Electric', 'Ice']": {
+        "name": "Frozen Blast (Earth/Electric/Ice)",
+        "damage": 232
+    },
+    "['Earth', 'Electric', 'Light']": {
+        "name": "Radiant Glow (Earth/Electric/Light)",
+        "damage": 245
+    },
+    "['Earth', 'Electric', 'Dark']": {
+        "name": "Shadow Bind (Earth/Electric/Dark)",
+        "damage": 204
+    },
+    "['Earth', 'Electric', 'Void']": {
+        "name": "Void Pulse (Earth/Electric/Void)",
+        "damage": 163
+    },
+    "['Earth', 'Electric', 'Water']": {
+        "name": "Tidal Wave (Earth/Electric/Water)",
+        "damage": 187
+    },
+    "['Earth', 'Electric', 'Wind']": {
+        "name": "Storm Surge (Earth/Electric/Wind)",
+        "damage": 168
+    },
+    "['Earth', 'Fire', 'Fire']": {
+        "name": "Inferno (Earth/Fire/Fire)",
+        "damage": 221
+    },
+    "['Earth', 'Fire', 'Ice']": {
+        "name": "Frozen Blast (Earth/Fire/Ice)",
+        "damage": 213
+    },
+    "['Earth', 'Fire', 'Light']": {
+        "name": "Solar Flare (Earth/Fire/Light)",
+        "damage": 159
+    },
+    "['Earth', 'Fire', 'Dark']": {
+        "name": "Shadow Bind (Earth/Fire/Dark)",
+        "damage": 178
+    },
+    "['Earth', 'Fire', 'Void']": {
+        "name": "Void Pulse (Earth/Fire/Void)",
+        "damage": 208
+    },
+    "['Earth', 'Fire', 'Water']": {
+        "name": "Blazing Fury (Earth/Fire/Water)",
+        "damage": 236
+    },
+    "['Earth', 'Fire', 'Wind']": {
+        "name": "Gale Force (Earth/Fire/Wind)",
+        "damage": 175
+    },
+    "['Earth', 'Ice', 'Ice']": {
+        "name": "Glacier (Earth/Ice/Ice)",
+        "damage": 241
+    },
+    "['Earth', 'Ice', 'Light']": {
+        "name": "Luminescence (Earth/Ice/Light)",
+        "damage": 198
+    },
+    "['Earth', 'Ice', 'Dark']": {
+        "name": "Nightfall (Earth/Ice/Dark)",
+        "damage": 214
+    },
+    "['Earth', 'Ice', 'Void']": {
+        "name": "Abyssal Wrath (Earth/Ice/Void)",
+        "damage": 165
+    },
+    "['Earth', 'Ice', 'Water']": {
+        "name": "Deluge (Earth/Ice/Water)",
+        "damage": 232
+    },
+    "['Earth', 'Ice', 'Wind']": {
+        "name": "Storm Surge (Earth/Ice/Wind)",
+        "damage": 161
+    },
+    "['Earth', 'Light', 'Light']": {
+        "name": "Radiant Glow (Earth/Light/Light)",
+        "damage": 187
+    },
+    "['Earth', 'Light', 'Dark']": {
+        "name": "Twilight Tremor (Earth/Light/Dark)",
+        "damage": 242
+    },
+    "['Earth', 'Light', 'Void']": {
+        "name": "Void Pulse (Earth/Light/Void)",
+        "damage": 179
+    },
+    "['Earth', 'Light', 'Water']": {
+        "name": "Tidal Wave (Earth/Light/Water)",
+        "damage": 225
+    },
+    "['Earth', 'Light', 'Wind']": {
+        "name": "Gale Force (Earth/Light/Wind)",
+        "damage": 214
+    },
+    "['Earth', 'Dark', 'Dark']": {
+        "name": "Shadow Bind (Earth/Dark/Dark)",
+        "damage": 195
+    },
+    "['Earth', 'Dark', 'Void']": {
+        "name": "Abyssal Wrath (Earth/Dark/Void)",
+        "damage": 204
+    },
+    "['Earth', 'Dark', 'Water']": {
+        "name": "Swamp Curse (Earth/Dark/Water)",
+        "damage": 231
+    },
+    "['Earth', 'Dark', 'Wind']": {
+        "name": "Storm Surge (Earth/Dark/Wind)",
+        "damage": 216
+    },
+    "['Earth', 'Void', 'Void']": {
+        "name": "Abyssal Wrath (Earth/Void/Void)",
+        "damage": 208
+    },
+    "['Earth', 'Void', 'Water']": {
+        "name": "Deluge (Earth/Void/Water)",
+        "damage": 176
+    },
+    "['Earth', 'Void', 'Wind']": {
+        "name": "Storm Surge (Earth/Void/Wind)",
+        "damage": 197
+    },
+    "['Earth', 'Water', 'Water']": {
+        "name": "Deluge (Earth/Water/Water)",
+        "damage": 199
+    },
+    "['Earth', 'Water', 'Wind']": {
+        "name": "Gale Force (Earth/Water/Wind)",
+        "damage": 171
+    },
+    "['Earth', 'Wind', 'Wind']": {
+        "name": "Storm Surge (Earth/Wind/Wind)",
+        "damage": 187
+    },
+    "['Electric', 'Electric', 'Electric']": {
+        "name": "Volt Surge (Electric/Electric/Electric)",
+        "damage": 230
+    },
+    "['Electric', 'Electric', 'Fire']": {
+        "name": "Inferno (Electric/Electric/Fire)",
+        "damage": 198
+    },
+    "['Electric', 'Electric', 'Ice']": {
+        "name": "Frozen Blast (Electric/Electric/Ice)",
+        "damage": 220
+    },
+    "['Electric', 'Electric', 'Light']": {
+        "name": "Radiant Glow (Electric/Electric/Light)",
+        "damage": 215
+    },
+    "['Electric', 'Electric', 'Dark']": {
+        "name": "Shadow Bind (Electric/Electric/Dark)",
+        "damage": 172
+    },
+    "['Electric', 'Electric', 'Void']": {
+        "name": "Void Pulse (Electric/Electric/Void)",
+        "damage": 207
+    },
+    "['Electric', 'Electric', 'Water']": {
+        "name": "Tidal Wave (Electric/Electric/Water)",
+        "damage": 193
+    },
+    "['Electric', 'Electric', 'Wind']": {
+        "name": "Storm Surge (Electric/Electric/Wind)",
+        "damage": 215
+    },
+    "['Electric', 'Fire', 'Fire']": {
+        "name": "Blazing Fury (Electric/Fire/Fire)",
+        "damage": 190
+    },
+    "['Electric', 'Fire', 'Ice']": {
+        "name": "Frozen Blast (Electric/Fire/Ice)",
+        "damage": 237
+    },
+    "['Electric', 'Fire', 'Light']": {
+        "name": "Solar Flare (Electric/Fire/Light)",
+        "damage": 182
+    },
+    "['Electric', 'Fire', 'Dark']": {
+        "name": "Shadow Bind (Electric/Fire/Dark)",
+        "damage": 225
+    },
+    "['Electric', 'Fire', 'Void']": {
+        "name": "Void Pulse (Electric/Fire/Void)",
+        "damage": 186
+    },
+    "['Electric', 'Fire', 'Water']": {
+        "name": "Thunder Steam (Electric/Fire/Water)",
+        "damage": 240
+    },
+    "['Electric', 'Fire', 'Wind']": {
+        "name": "Storm Surge (Electric/Fire/Wind)",
+        "damage": 215
+    },
+    "['Electric', 'Ice', 'Ice']": {
+        "name": "Glacier (Electric/Ice/Ice)",
+        "damage": 200
+    },
+    "['Electric', 'Ice', 'Light']": {
+        "name": "Luminescence (Electric/Ice/Light)",
+        "damage": 199
+    },
+    "['Electric', 'Ice', 'Dark']": {
+        "name": "Frozen Shadow (Electric/Ice/Dark)",
+        "damage": 207
+    },
+    "['Electric', 'Ice', 'Void']": {
+        "name": "Void Pulse (Electric/Ice/Void)",
+        "damage": 169
+    },
+    "['Electric', 'Ice', 'Water']": {
+        "name": "Deluge (Electric/Ice/Water)",
+        "damage": 198
+    },
+    "['Electric', 'Ice', 'Wind']": {
+        "name": "Storm Surge (Electric/Ice/Wind)",
+        "damage": 224
+    },
+    "['Electric', 'Light', 'Light']": {
+        "name": "Radiant Glow (Electric/Light/Light)",
+        "damage": 176
+    },
+    "['Electric', 'Light', 'Dark']": {
+        "name": "Twilight Tremor (Electric/Light/Dark)",
+        "damage": 242
+    },
+    "['Electric', 'Light', 'Void']": {
+        "name": "Void Pulse (Electric/Light/Void)",
+        "damage": 210
+    },
+    "['Electric', 'Light', 'Water']": {
+        "name": "Tidal Wave (Electric/Light/Water)",
+        "damage": 230
+    },
+    "['Electric', 'Light', 'Wind']": {
+        "name": "Gale Force (Electric/Light/Wind)",
+        "damage": 221
+    },
+    "['Electric', 'Dark', 'Dark']": {
+        "name": "Shadow Bind (Electric/Dark/Dark)",
+        "damage": 190
+    },
+    "['Electric', 'Dark', 'Void']": {
+        "name": "Abyssal Wrath (Electric/Dark/Void)",
+        "damage": 220
+    },
+    "['Electric', 'Dark', 'Water']": {
+        "name": "Swamp Curse (Electric/Dark/Water)",
+        "damage": 187
+    },
+    "['Electric', 'Dark', 'Wind']": {
+        "name": "Storm Surge (Electric/Dark/Wind)",
+        "damage": 200
+    },
+    "['Electric', 'Void', 'Void']": {
+        "name": "Abyssal Wrath (Electric/Void/Void)",
+        "damage": 176
+    },
+    "['Electric', 'Void', 'Water']": {
+        "name": "Deluge (Electric/Void/Water)",
+        "damage": 189
+    },
+    "['Electric', 'Void', 'Wind']": {
+        "name": "Storm Surge (Electric/Void/Wind)",
+        "damage": 177
+    },
+    "['Electric', 'Water', 'Water']": {
+        "name": "Deluge (Electric/Water/Water)",
+        "damage": 225
+    },
+    "['Electric', 'Water', 'Wind']": {
+        "name": "Gale Force (Electric/Water/Wind)",
+        "damage": 216
+    },
+    "['Electric', 'Wind', 'Wind']": {
+        "name": "Storm Surge (Electric/Wind/Wind)",
+        "damage": 210
+    },
+    "['Fire', 'Fire', 'Fire']": {
+        "name": "Inferno (Fire/Fire/Fire)",
+        "damage": 245
+    },
+    "['Fire', 'Fire', 'Ice']": {
+        "name": "Frost Flame (Fire/Fire/Ice)",
+        "damage": 238
+    },
+    "['Fire', 'Fire', 'Light']": {
+        "name": "Solar Flare (Fire/Fire/Light)",
+        "damage": 192
+    },
+    "['Fire', 'Fire', 'Dark']": {
+        "name": "Shadow Bind (Fire/Fire/Dark)",
+        "damage": 178
+    },
+    "['Fire', 'Fire', 'Void']": {
+        "name": "Void Pulse (Fire/Fire/Void)",
+        "damage": 185
+    },
+    "['Fire', 'Fire', 'Water']": {
+        "name": "Steam Burst (Fire/Fire/Water)",
+        "damage": 170
+    },
+    "['Fire', 'Fire', 'Wind']": {
+        "name": "Blazing Fury (Fire/Fire/Wind)",
+        "damage": 188
+    },
+    "['Fire', 'Ice', 'Ice']": {
+        "name": "Glacier (Fire/Ice/Ice)",
+        "damage": 204
+    },
+    "['Fire', 'Ice', 'Light']": {
+        "name": "Luminescence (Fire/Ice/Light)",
+        "damage": 185
+    },
+    "['Fire', 'Ice', 'Dark']": {
+        "name": "Frozen Shadow (Fire/Ice/Dark)",
+        "damage": 213
+    },
+    "['Fire', 'Ice', 'Void']": {
+        "name": "Abyssal Wrath (Fire/Ice/Void)",
+        "damage": 168
+    },
+    "['Fire', 'Ice', 'Water']": {
+        "name": "Cosmic Collide (Fire/Ice/Water)",
+        "damage": 232
+    },
+    "['Fire', 'Ice', 'Wind']": {
+        "name": "Storm Surge (Fire/Ice/Wind)",
+        "damage": 172
+    },
+    "['Fire', 'Light', 'Light']": {
+        "name": "Radiant Glow (Fire/Light/Light)",
+        "damage": 183
+    },
+    "['Fire', 'Light', 'Dark']": {
+        "name": "Twilight Tremor (Fire/Light/Dark)",
+        "damage": 202
+    },
+    "['Fire', 'Light', 'Void']": {
+        "name": "Void Pulse (Fire/Light/Void)",
+        "damage": 191
+    },
+    "['Fire', 'Light', 'Water']": {
+        "name": "Tidal Wave (Fire/Light/Water)",
+        "damage": 224
+    },
+    "['Fire', 'Light', 'Wind']": {
+        "name": "Gale Force (Fire/Light/Wind)",
+        "damage": 209
+    },
+    "['Fire', 'Dark', 'Dark']": {
+        "name": "Shadow Bind (Fire/Dark/Dark)",
+        "damage": 196
+    },
+    "['Fire', 'Dark', 'Void']": {
+        "name": "Abyssal Wrath (Fire/Dark/Void)",
+        "damage": 181
+    },
+    "['Fire', 'Dark', 'Water']": {
+        "name": "Swamp Curse (Fire/Dark/Water)",
+        "damage": 230
+    },
+    "['Fire', 'Dark', 'Wind']": {
+        "name": "Storm Surge (Fire/Dark/Wind)",
+        "damage": 220
+    },
+    "['Fire', 'Void', 'Void']": {
+        "name": "Abyssal Wrath (Fire/Void/Void)",
+        "damage": 205
+    },
+    "['Fire', 'Void', 'Water']": {
+        "name": "Deluge (Fire/Void/Water)",
+        "damage": 195
+    },
+    "['Fire', 'Void', 'Wind']": {
+        "name": "Storm Surge (Fire/Void/Wind)",
+        "damage": 198
+    },
+    "['Fire', 'Water', 'Water']": {
+        "name": "Deluge (Fire/Water/Water)",
+        "damage": 197
+    },
+    "['Fire', 'Water', 'Wind']": {
+        "name": "Gale Force (Fire/Water/Wind)",
+        "damage": 180
+    },
+    "['Fire', 'Wind', 'Wind']": {
+        "name": "Storm Surge (Fire/Wind/Wind)",
+        "damage": 182
+    },
+    "['Ice', 'Ice', 'Ice']": {
+        "name": "Frozen Blast (Ice/Ice/Ice)",
+        "damage": 240
+    },
+    "['Ice', 'Ice', 'Light']": {
+        "name": "Luminescence (Ice/Ice/Light)",
+        "damage": 193
+    },
+    "['Ice', 'Ice', 'Dark']": {
+        "name": "Frozen Shadow (Ice/Ice/Dark)",
+        "damage": 212
+    },
+    "['Ice', 'Ice', 'Void']": {
+        "name": "Abyssal Wrath (Ice/Ice/Void)",
+        "damage": 171
+    },
+    "['Ice', 'Ice', 'Water']": {
+        "name": "Deluge (Ice/Ice/Water)",
+        "damage": 188
+    },
+    "['Ice', 'Ice', 'Wind']": {
+        "name": "Storm Surge (Ice/Ice/Wind)",
+        "damage": 179
+    },
+    "['Ice', 'Light', 'Light']": {
+        "name": "Radiant Glow (Ice/Light/Light)",
+        "damage": 180
+    },
+    "['Ice', 'Light', 'Dark']": {
+        "name": "Twilight Tremor (Ice/Light/Dark)",
+        "damage": 196
+    },
+    "['Ice', 'Light', 'Void']": {
+        "name": "Void Pulse (Ice/Light/Void)",
+        "damage": 182
+    },
+    "['Ice', 'Light', 'Water']": {
+        "name": "Tidal Wave (Ice/Light/Water)",
+        "damage": 230
+    },
+    "['Ice', 'Light', 'Wind']": {
+        "name": "Gale Force (Ice/Light/Wind)",
+        "damage": 211
+    },
+    "['Ice', 'Dark', 'Dark']": {
+        "name": "Shadow Bind (Ice/Dark/Dark)",
+        "damage": 192
+    },
+    "['Ice', 'Dark', 'Void']": {
+        "name": "Abyssal Wrath (Ice/Dark/Void)",
+        "damage": 204
+    },
+    "['Ice', 'Dark', 'Water']": {
+        "name": "Swamp Curse (Ice/Dark/Water)",
+        "damage": 179
+    },
+    "['Ice', 'Dark', 'Wind']": {
+        "name": "Storm Surge (Ice/Dark/Wind)",
+        "damage": 215
+    },
+    "['Ice', 'Void', 'Void']": {
+        "name": "Abyssal Wrath (Ice/Void/Void)",
+        "damage": 184
+    },
+    "['Ice', 'Void', 'Water']": {
+        "name": "Deluge (Ice/Void/Water)",
+        "damage": 180
+    },
+    "['Ice', 'Void', 'Wind']": {
+        "name": "Storm Surge (Ice/Void/Wind)",
+        "damage": 193
+    },
+    "['Ice', 'Water', 'Water']": {
+        "name": "Deluge (Ice/Water/Water)",
+        "damage": 187
+    },
+    "['Ice', 'Water', 'Wind']": {
+        "name": "Gale Force (Ice/Water/Wind)",
+        "damage": 181
+    },
+    "['Ice', 'Wind', 'Wind']": {
+        "name": "Storm Surge (Ice/Wind/Wind)",
+        "damage": 176
+    },
+    "['Light', 'Light', 'Light']": {
+        "name": "Radiant Glow (Light/Light/Light)",
+        "damage": 243
+    },
+    "['Light', 'Light', 'Dark']": {
+        "name": "Twilight Tremor (Light/Light/Dark)",
+        "damage": 198
+    },
+    "['Light', 'Light', 'Void']": {
+        "name": "Void Pulse (Light/Light/Void)",
+        "damage": 201
+    },
+    "['Light', 'Light', 'Water']": {
+        "name": "Tidal Wave (Light/Light/Water)",
+        "damage": 213
+    },
+    "['Light', 'Light', 'Wind']": {
+        "name": "Gale Force (Light/Light/Wind)",
+        "damage": 221
+    },
+    "['Light', 'Dark', 'Dark']": {
+        "name": "Shadow Bind (Light/Dark/Dark)",
+        "damage": 192
+    },
+    "['Light', 'Dark', 'Void']": {
+        "name": "Abyssal Wrath (Light/Dark/Void)",
+        "damage": 188
+    },
+    "['Light', 'Dark', 'Water']": {
+        "name": "Swamp Curse (Light/Dark/Water)",
+        "damage": 213
+    },
+    "['Light', 'Dark', 'Wind']": {
+        "name": "Storm Surge (Light/Dark/Wind)",
+        "damage": 183
+    },
+    "['Light', 'Void', 'Void']": {
+        "name": "Abyssal Wrath (Light/Void/Void)",
+        "damage": 182
+    },
+    "['Light', 'Void', 'Water']": {
+        "name": "Deluge (Light/Void/Water)",
+        "damage": 216
+    },
+    "['Light', 'Void', 'Wind']": {
+        "name": "Storm Surge (Light/Void/Wind)",
+        "damage": 204
+    },
+    "['Light', 'Water', 'Water']": {
+        "name": "Deluge (Light/Water/Water)",
+        "damage": 189
+    },
+    "['Light', 'Water', 'Wind']": {
+        "name": "Gale Force (Light/Water/Wind)",
+        "damage": 210
+    },
+    "['Light', 'Wind', 'Wind']": {
+        "name": "Storm Surge (Light/Wind/Wind)",
+        "damage": 181
+    },
+    "['Dark', 'Dark', 'Dark']": {
+        "name": "Shadow Bind (Dark/Dark/Dark)",
+        "damage": 241
+    },
+    "['Dark', 'Dark', 'Void']": {
+        "name": "Abyssal Wrath (Dark/Dark/Void)",
+        "damage": 214
+    },
+    "['Dark', 'Dark', 'Water']": {
+        "name": "Swamp Curse (Dark/Dark/Water)",
+        "damage": 189
+    },
+    "['Dark', 'Dark', 'Wind']": {
+        "name": "Storm Surge (Dark/Dark/Wind)",
+        "damage": 217
+    },
+    "['Dark', 'Void', 'Void']": {
+        "name": "Abyssal Wrath (Dark/Void/Void)",
+        "damage": 202
+    },
+    "['Dark', 'Void', 'Water']": {
+        "name": "Deluge (Dark/Void/Water)",
+        "damage": 202
+    },
+    "['Dark', 'Void', 'Wind']": {
+        "name": "Storm Surge (Dark/Void/Wind)",
+        "damage": 178
+    },
+    "['Dark', 'Water', 'Water']": {
+        "name": "Swamp Curse (Dark/Water/Water)",
+        "damage": 230
+    },
+    "['Dark', 'Water', 'Wind']": {
+        "name": "Storm Surge (Dark/Water/Wind)",
+        "damage": 189
+    },
+    "['Dark', 'Wind', 'Wind']": {
+        "name": "Storm Surge (Dark/Wind/Wind)",
+        "damage": 189
+    },
+    "['Void', 'Void', 'Void']": {
+        "name": "Abyssal Wrath (Void/Void/Void)",
+        "damage": 244
+    },
+    "['Void', 'Void', 'Water']": {
+        "name": "Deluge (Void/Void/Water)",
+        "damage": 201
+    },
+    "['Void', 'Void', 'Wind']": {
+        "name": "Storm Surge (Void/Void/Wind)",
+        "damage": 195
+    },
+    "['Void', 'Water', 'Water']": {
+        "name": "Deluge (Void/Water/Water)",
+        "damage": 182
+    },
+    "['Void', 'Water', 'Wind']": {
+        "name": "Gale Force (Void/Water/Wind)",
+        "damage": 176
+    },
+    "['Void', 'Wind', 'Wind']": {
+        "name": "Storm Surge (Void/Wind/Wind)",
+        "damage": 201
+    },
+    "['Water', 'Water', 'Water']": {
+        "name": "Deluge (Water/Water/Water)",
+        "damage": 246
+    },
+    "['Water', 'Water', 'Wind']": {
+        "name": "Gale Force (Water/Water/Wind)",
+        "damage": 200
+    },
+    "['Water', 'Wind', 'Wind']": {
+        "name": "Storm Surge (Water/Wind/Wind)",
+        "damage": 202
+    },
+    "['Wind', 'Wind', 'Wind']": {
+        "name": "Storm Surge (Wind/Wind/Wind)",
+        "damage": 246
+    }
+}
